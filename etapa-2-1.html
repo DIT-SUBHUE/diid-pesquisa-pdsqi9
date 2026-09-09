@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme-default="light" x-data="{ darkMode: document.documentElement.classList.contains('dark'), mobileNavOpen: false }" :class="{ 'dark': darkMode }" style="color-scheme: light;"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Síntese das traduções - PDSQI-9</title>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="#">
+
+<script>
+    (function() {
+        var root = document.documentElement;
+
+        function defaultIsDark() {
+            var themeDefault = root.getAttribute('data-theme-default') || 'light';
+
+            if (themeDefault === 'system') {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            return themeDefault === 'dark';
+        }
+
+        function getStoredTheme() {
+            try {
+                return window.localStorage.getItem('theme');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function applyTheme(isDark) {
+            root.classList.toggle('dark', isDark);
+            root.style.colorScheme = isDark ? 'dark' : 'light';
+        }
+
+        // Páginas sem alternador (ex.: cadastro de participante) podem travar o tema
+        // com data-theme-fixed="light|dark": a preferência salva é ignorada e o
+        // tema não pode ser alterado enquanto a página estiver aberta.
+        var fixedTheme = root.getAttribute('data-theme-fixed');
+        var isFixed = fixedTheme === 'dark' || fixedTheme === 'light';
+
+        var storedTheme = getStoredTheme();
+        var isDark = isFixed
+            ? fixedTheme === 'dark'
+            : (storedTheme ? storedTheme === 'dark' : defaultIsDark());
+
+        applyTheme(isDark);
+
+        window.DIIDTheme = {
+            apply: isFixed ? function() { applyTheme(isDark); } : applyTheme,
+            save: function(nextIsDark) {
+                if (isFixed) {
+                    applyTheme(isDark);
+                    return;
+                }
+
+                applyTheme(nextIsDark);
+
+                try {
+                    window.localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+                } catch (error) {}
+            }
+        };
+    })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/css2_X12B.css" rel="stylesheet">
+<link rel="stylesheet" href="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/app_X12B.css">
+<link rel="stylesheet" href="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/datatables-2.2.2.min_X12B.css">
+
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/jquery-3.7.1.slim.min_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/datatables-2.2.2.min_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/htmx-1.9.10.min_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/alpinejs-3.15.11.min_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/lucide-1.12.0.min_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/datatable-init_X12B.js" defer="defer"></script>
+<script src="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/dialog_X12B.js" defer="defer"></script>
+
+
+    
+<link rel="stylesheet" href="S%C3%ADntese%20das%20tradu%C3%A7%C3%B5es%20-%20PDSQI-9_files/ia_na_alta_X12B.css">
+
+<style>                      .htmx-indicator{opacity:0}                      .htmx-request .htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                      .htmx-request.htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                    </style></head>
+<body class="flex min-h-screen flex-col font-sans vsc-initialized">
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-github-light-canvas focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-github-light-textPrimary focus:shadow-soft">
+        Ir para o conteúdo
+    </a>
+
+    <nav class="top-nav">
+    <div class="app-container flex items-center justify-between gap-4 py-3">
+        <div class="flex min-w-0 items-center gap-2">
+            <!-- Hamburger (mobile only) -->
+            <button type="button" @click="mobileNavOpen = true" :aria-expanded="mobileNavOpen" aria-label="Abrir menu" class="hamburger-btn sm:hidden shrink-0" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" aria-hidden="true" class="lucide lucide-menu h-5 w-5"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+            </button>
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="flex min-w-0 items-center gap-1 overflow-hidden">
+                <!-- Portal DIID (nível raiz) -->
+                
+                <a href="#" class="breadcrumb-item shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="blocks" aria-hidden="true" class="lucide lucide-blocks h-4 w-4 shrink-0"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"></path><rect x="14" y="2" width="8" height="8" rx="1"></rect></svg>
+                    <span>Portal DIID</span>
+                </a>
+                
+
+                
+                
+                <span class="breadcrumb-separator shrink-0" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <a href="#" class="breadcrumb-item shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flask-conical" aria-hidden="true" class="lucide lucide-flask-conical h-4 w-4 shrink-0"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>
+                    <span class="truncate">Pesquisa</span>
+                </a>
+                
+                
+                
+                <span class="breadcrumb-separator shrink-0 hidden sm:flex" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <a href="#" class="breadcrumb-item shrink-0 hidden sm:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="languages" aria-hidden="true" class="lucide lucide-languages h-4 w-4 shrink-0"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+                    <span class="truncate">Adaptação PDSQI-9</span>
+                </a>
+                
+                
+                
+                <span class="breadcrumb-separator shrink-0 hidden sm:flex" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <span class="breadcrumb-item breadcrumb-item-active min-w-0 hidden sm:flex" aria-current="page">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="git-merge" aria-hidden="true" class="lucide lucide-git-merge h-4 w-4 shrink-0"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M6 21V9a9 9 0 0 0 9 9"></path></svg>
+                    <span class="truncate">Etapa 2.1 · Síntese das traduções</span>
+                </span>
+                
+                
+            </nav>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-2">
+            <button type="button" @click="darkMode = !darkMode; window.DIIDTheme.save(darkMode)" class="theme-toggle" aria-label="Alternar tema">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="moon" aria-hidden="true" x-show="!darkMode" class="lucide lucide-moon h-4 w-4"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun" aria-hidden="true" x-show="darkMode" class="lucide lucide-sun h-4 w-4" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            </button>
+
+            <div class="relative" x-data="{ userMenuOpen: false }" @keydown.escape.window="userMenuOpen = false">
+    <button type="button" class="user-menu-button" @click="userMenuOpen = !userMenuOpen" aria-haspopup="true" :aria-expanded="userMenuOpen.toString()" aria-expanded="false">
+        <span class=" brand-mark brand-mark-user h-9 w-9 text-sm font-semibold">
+            G
+        </span>
+        <span class="hidden min-w-0 sm:block">
+            <span class="block max-w-36 truncate text-sm font-semibold text-primary">LOREN IPSUM (DEMONSTRAÇÃO)</span>
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down hidden h-4 w-4 text-github-light-textSecondary dark:text-github-dark-textSecondary sm:block"><path d="m6 9 6 6 6-6"></path></svg>
+    </button>
+
+    <div x-show="userMenuOpen" x-transition.origin.top.right="" @click.outside="userMenuOpen = false" class="dropdown-surface" style="display: none;">
+        <div class="border-b border-github-light-borderMuted px-4 py-3 dark:border-github-dark-borderMuted">
+            <p class="truncate text-sm font-semibold text-primary">LOREN IPSUM (DEMONSTRAÇÃO)</p>
+            <p class="truncate text-xs text-muted">Usuário interno</p>
+        </div>
+        <div class="p-1.5">
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-round" aria-hidden="true" class="lucide lucide-user-round h-4 w-4"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+                Minha conta
+            </a>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="key-round" aria-hidden="true" class="lucide lucide-key-round h-4 w-4"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
+                Alterar senha
+            </a>
+            
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-plus" aria-hidden="true" class="lucide lucide-user-plus h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+                Criar usuário
+            </a>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield" aria-hidden="true" class="lucide lucide-shield h-4 w-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                Django Admin
+            </a>
+            
+            <form method="post" action="/logout/">
+                <input type="hidden" name="csrfmiddlewaretoken" value="demo-statico">
+                <button type="submit" class="menu-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out" aria-hidden="true" class="lucide lucide-log-out h-4 w-4"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+                    Sair
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+    
+
+
+
+
+
+
+
+
+
+
+<!-- Overlay -->
+<div x-show="mobileNavOpen" x-transition:enter="transition-opacity duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="mobileNavOpen = false" class="mobile-nav-overlay" aria-hidden="true" style="display: none"></div>
+
+<!-- Drawer -->
+<div x-show="mobileNavOpen" x-transition:enter="transition-transform duration-300" x-transition:enter-start="mobile-nav-slide-out" x-transition:enter-end="mobile-nav-slide-in" x-transition:leave="transition-transform duration-300" x-transition:leave-start="mobile-nav-slide-in" x-transition:leave-end="mobile-nav-slide-out" @keydown.escape.window="mobileNavOpen = false" x-effect="if (mobileNavOpen) $nextTick(() =&gt; $refs.closeBtn &amp;&amp; $refs.closeBtn.focus())" class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="display: none">
+    <!-- Header -->
+    <div class="mobile-nav-drawer-header">
+        <a href="#" @click="mobileNavOpen = false" class="flex items-center gap-2">
+            <span class="brand-mark h-7 w-7 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="blocks" aria-hidden="true" class="lucide lucide-blocks h-4 w-4"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"></path><rect x="14" y="2" width="8" height="8" rx="1"></rect></svg>
+            </span>
+            <span class="text-sm font-semibold text-primary">Portal DIID</span>
+        </a>
+        <button x-ref="closeBtn" type="button" @click="mobileNavOpen = false" class="hamburger-btn" aria-label="Fechar menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" aria-hidden="true" class="lucide lucide-x h-5 w-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto py-2" aria-label="Navegação principal">
+
+        <!-- Pesquisa -->
+        <p class="mobile-nav-section-title">Aplicações</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flask-conical" aria-hidden="true" class="lucide lucide-flask-conical h-4 w-4 shrink-0"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>
+            Pesquisa
+        </a>
+
+        <!-- Pesquisadores -->
+        <p class="mobile-nav-section-title">Pesquisadores</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" aria-hidden="true" class="lucide lucide-layout-dashboard h-4 w-4 shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+            Painel
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text h-4 w-4 shrink-0"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            Altas Médicas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="database" aria-hidden="true" class="lucide lucide-database h-4 w-4 shrink-0"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+            Jornadas Brutas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle" aria-hidden="true" class="lucide lucide-check-circle h-4 w-4 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+            Jornadas Limpas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" aria-hidden="true" class="lucide lucide-users h-4 w-4 shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            Painel de Avaliadores
+        </a>
+
+        
+        <p class="mobile-nav-section-title">Avaliadores</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" aria-hidden="true" class="lucide lucide-layout-dashboard h-4 w-4 shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+            Visão Geral
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-circle" aria-hidden="true" class="lucide lucide-play-circle h-4 w-4 shrink-0"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+            Iniciar Avaliação
+        </a>
+        
+
+    </nav>
+</div>
+
+
+
+
+    <main id="conteudo" class="app-main ">
+        
+
+        
+    
+<section class="mb-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            
+            <p class="page-kicker">Etapa 2.1</p>
+            
+            <h1 class="page-title mt-1">Síntese das traduções (T-12)</h1>
+            
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">Bancada de conciliação: texto-fonte, T1 e T2 lado a lado para produzir a versão síntese.</p>
+            
+        </div>
+
+        
+    </div>
+</section>
+
+
+
+
+
+
+<section class="pdsqi9-translation-toolbar panel">
+    <div>
+        <p class="page-kicker">Produto da etapa</p>
+        <p class="text-sm text-muted mt-1">Compare as traduções independentes e registre uma versão consensual para cada item.</p>
+    </div>
+    <div class="pdsqi9-source-slots" aria-label="Traduções carregadas">
+        <span><strong>T1</strong>carregada</span>
+        <span><strong>T2</strong>carregada</span>
+    </div>
+</section>
+
+<section class="pdsqi9-how-grid mt-6" aria-label="Fluxo da síntese">
+    <div class="panel p-4"><strong>1. Compare</strong><span>Texto-fonte, T1 e T2 por item.</span></div>
+    <div class="panel p-4"><strong>2. Concilie</strong><span>Escolha a melhor redação por consenso.</span></div>
+    <div class="panel p-4"><strong>3. Justifique</strong><span>Registre divergências e decisões.</span></div>
+    <div class="panel p-4"><strong>4. Prepare</strong><span>Gere a base da T-12 para persistência.</span></div>
+</section>
+
+<form method="post" class="mt-6 space-y-6" id="form-etapa2">
+    <input type="hidden" name="csrfmiddlewaretoken" value="demo-statico">
+    <input type="hidden" name="action" id="form-action" value="rascunho">
+    
+    
+        
+        <div class="pdsqi9-group-header">
+            <span>Seções gerais</span>
+        </div>
+        
+        <section class="pdsqi9-translation-item" id="g_instr">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Instruções gerais</h2>
+                    <p>apresentação do instrumento</p>
+                    <div class="pdsqi9-glosa">Apresentação do instrumento e instrução de que a avaliação é feita no nível da nota.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Provider Document Summarization Quality Instrument (PDSQI)-9 for Generative Artificial Intelligence
+
+This instrument is an adapted version of the Physician Documentation Quality Instrument (PDQI-9; Stetson et al., Appl Clin Inform, 2012, PMC3347480), originally developed to evaluate provider documentation quality. It has been redesigned to assess the summarization of provider documentation by large language models (LLMs) and renamed the Provider Documentation Quality and Summarization Instrument (PDSQI-9). The redesign process followed a semi-Delphi methodology, engaging experts in human factors, data science, and clinical medicine from the University of Wisconsin-Madison, University of Colorado-Denver, UW Health, and Epic Systems. The evaluation is performed at the note level for each criterion.</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Este documento é uma versão adaptada  de um instrumento de qualidade médica )PDQI-9, Stetson e colaboladores, Appl Clin Inform, 20212, PMC3347480) . 
+Originalmente desenvolvido para avaliar e documentar qualidade . Ele foi feito para sintetizar a documentação de vários modelos de linguagens (LLMs) e renomeado de fornecedor de documento de qualidade resumido (PDSQI-9). O processo segue o mesmo método Delphi envolvendo a fatores de tradução human, dados científicos e clínicos da universidade de Wisconsin- Madison, universidade don Colorado-Denver, UW saúde , sistema épico . A evolução é avaliada  pela nota de cada critério</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Idiomática, Experiencial
+                        <br><strong>Termos/justificativa:</strong> redesigned
+engaging
+performed
+
+Vocabulário pouco utilizado
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Instrumento de Qualidade de Resumo de Documentação por profissionais da saúde (PDSQI-9) para Inteligência Artificial Generativa
+
+Este instrumento é uma versão adaptada do Physician Documentation Quality Instrument (PDQI-9; Stetson et al., Appl Clin Inform, 2012, PMC3347480), originalmente desenvolvido para avaliar a qualidade da documentação do profissional. Ele foi reformulado para avaliar a sumarização dessa documentação por modelos de linguagem  ampla (LLMs) e renomeado como Provider Documentation Quality and Summarization Instrument (PDSQI-9). O processo de reformulação seguiu uma metodologia semi-Delphi, envolvendo especialistas fatores humanos, ciência de dados e medicina clínica da Universidade de Wisconsin-Madison, Universidade do Colorado-Denver, UW Health e Epic Systems. A avaliação é realizada em nível de nota para cada critério.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Experiencial
+                        <br><strong>Termos/justificativa:</strong> Provider, porque a tradução literal seria ^fornecedor^
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__g_instr">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__g_instr" name="consenso__g_instr" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__g_instr">Divergências e decisão</label>
+                    <textarea id="justificativa__g_instr" name="justificativa__g_instr" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_asser">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Nota sobre “asserção”</h2>
+                    <p>definição de termo</p>
+                    <div class="pdsqi9-glosa">Definição de asserção como afirmação que pode ter uma ou mais frases.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">*An assertion is a statement that can be single or multiple sentences.</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">A afirmação é um declaração que pode ter uma ou múltiplas frases.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> Semântica, Experiencial
+                        <br><strong>Termos/justificativa:</strong> Não houve
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Uma asserção é uma declaração que pode ser frases simples ou múltiplas.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__g_asser">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__g_asser" name="consenso__g_asser" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__g_asser">Divergências e decisão</label>
+                    <textarea id="justificativa__g_asser" name="justificativa__g_asser" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_extr">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Sumarização extrativa</h2>
+                    <p>definição (antecede o item 2)</p>
+                    <div class="pdsqi9-glosa">Seleção verbatim de trechos da fonte, sem alterar a redação.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Extraction-based summarization involves selecting and pulling exact phrases or sentences directly from the original text without altering the wording. The focus is on identifying the most important parts of the text and reproducing them verbatim to form the summary.
+
+For example, in a clinical context, if the original text states, "the patient experienced shortness of breath, had an elevated white blood cell count, and showed a right lower lobe infiltrate on a chest X-ray," an extraction model would select and present these same sentences as the summary. There would be no attempt to infer or rephrase the content—just a selection of key details directly from the source.</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Extrações baseadas em resumos envolvem seleções retiradas de frases ou sentenças retiradas do texto original sem alterar o significado . O foco é identificar as partes mais importantes do texto e reproduzir o parágrafo do resumo 
+
+Por exemplo no contexto clínico se o texto original diz . “O paciente que experimentou falta de ar teve elevada contagem de  glóbulos brancos e mostrou um infiltrado no lobo direito do pulmão no Raio X” a extração pode ser selecionada para mesma sentença como um resumo.
+
+Lá pode não ter havido tentativa de alterar ou refazer a sentença do conteúdo Apenas a seleção dos pontos chaves diretamente do assunto</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Experiencial
+                        <br><strong>Termos/justificativa:</strong> chest - no Contexto se refere a pulmão 
+Shortness - tem contexto de falta e não pequena
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">A sumarização baseada em extração envolve selecionar  e extrair frases ou sentenças exatas diretamente do texto original, sem alterar a redação. O foco está em identificar as partes mais importantes do texto e reproduzi-las literalmente para formar o resumo.
+
+Por exemplo, no contexto clínico, se o texto original afirma: "o paciente apresentou falta de ar, uma elevada contagem de glóbulos brancos  e infiltrado no lobo inferior direito em uma radiografia de tórax", um modelo de extração selecionaria e apresentaria essas mesmas frases como resumo. Não haveria nenhuma tentativa de inferir ou reformular o conteúdo — apenas uma seleção de detalhes-chave diretamente da fonte.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> nenhuma
+                        <br><strong>Termos/justificativa:</strong> had an elevated white blood cell count traduzido como "elevada contagem de glóbulos brancos", mas provavelmente haveria um termo técnico mais adequado.
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__g_extr">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__g_extr" name="consenso__g_extr" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__g_extr">Divergências e decisão</label>
+                    <textarea id="justificativa__g_extr" name="justificativa__g_extr" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_abst">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Sumarização abstrativa</h2>
+                    <p>definição (antecede o item 8)</p>
+                    <div class="pdsqi9-glosa">Paráfrase e síntese da informação em novas frases.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Abstraction-based summarization goes beyond simply extracting exact phrases or sentences from the original text. Instead, it involves paraphrasing and synthesizing the information to produce new sentences that capture the core meaning. This is similar to how a human might read a passage and then restate the key ideas in their own words.
+
+For example, in a clinical context, instead of listing individual test results and medications (e.g., "the patient had an HbA1c of 9.2%, was prescribed metformin, and reported not following dietary recommendations"), an abstraction model might summarize this information as, "the patient has poorly controlled diabetes due to suboptimal adherence to treatment and lifestyle changes." This approach provides a synthesized understanding of the patient's overall condition rather than just enumerating discrete data points.
+
+To evaluate abstraction, you should assess how well the summary captures the essence of the original content, whether the paraphrased statements are accurate, and whether the model is able to infer higher-level concepts from specific details provided in the source text.</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Artigos-baseados em resumos vão além de simples extrações de frases ou sentenças do texto original. Ao invés isto envolve captura do real significado. Isto é parecido como o humano  tem o poder de ler a mensagem e reformular os pontos chaves da ideia com suas proprias palavras .
+
+Por exemplo, no contexto clinico, em vez de listar resultados de testes individuais  e medicamentos ( ex. "m o paciente teve HbA1 de 9,2%, foi prescrito metiformina, e relatado não seguir as recomendações de dieta"), no modelo de artigo pode ser resumido a informação como , "o paciente teve pouco controle da diabetes devido a pequena aderencia ao tratamento e mudanças do estilo de vida" Esta apresentação fornece um entendimento sintetizado do paciente de toda sua condição ou invés de enumerar detalhes dos pontos.
+
+Para avaliar artigos, você deve seguir como o resumo captura a essência do texto original, se a informação foi parafraseada são necessários e se o modelo é capaz de ter um alto nivel no conceito de detalhes específicos provenientes do assunto do texto</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> Experiencial, Conceitual
+                        <br><strong>Termos/justificativa:</strong> o ultimo paragrafo me pareceu com contexto dificil de interpretação para a tradução no assunto do texto
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">O resumo baseado em abstração vai além da simples extração de frases ou sentenças exatas do texto original. Em vez disso, envolve parafrasear e sintetizar as informações para produzir novas frases que capturem o significado principal. Isso é semelhante à forma como um ser humano leria um trecho e então reproduziria as ideias principais com suas próprias palavras.
+
+Por exemplo, em um contexto clínico, em vez de listar resultados de testes e medicamentos individualmente (como "o paciente apresentava HbA1c de 9,2%, recebeu prescrição de metformina e relatou não seguir as recomendações de dieta"), um modelo de abstração poderia resumir essas informações como: "o paciente apresenta diabetes mal controlado devido à adesão insuficiente ao tratamento e às mudanças no estilo de vida". Essa abordagem proporciona uma compreensão sintetizada da condição geral do paciente, ao invés de apenas enumerar dados isolados.
+
+Para avaliar a abstração, deve-se analisar quão bem o resumo captura a essência do conteúdo original, se as afirmações parafraseadas são precisas e se o modelo é capaz de inferir conceitos de nível superior a partir de detalhes específicos fornecidos no texto de origem.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> nenhuma
+                        <br><strong>Termos/justificativa:</strong> metformin, por ser um nome de medicamento.
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__g_abst">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__g_abst" name="consenso__g_abst" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__g_abst">Divergências e decisão</label>
+                    <textarea id="justificativa__g_abst" name="justificativa__g_abst" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <div class="pdsqi9-group-header">
+            <span>Itens do PDSQI-9</span>
+        </div>
+        
+        <section class="pdsqi9-translation-item" id="i1">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">1</span>
+                <div>
+                    <h2>Cited</h2>
+                    
+                    <div class="pdsqi9-glosa">As citações que ligam afirmações às notas de origem estão presentes e são apropriadas.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">1. Are citations present and appropriate?
+
+1 (Not at All): Multiple incorrect citations OR No citations provided
+2: One citation incorrect OR citations grouped together and not with individual assertions
+3: Citations correct but some assertions missing a citation
+4: Every assertion correctly cited with some relevance prioritization
+5 (Extremely): Every assertion is correctly cited and prioritized by relevance</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1. São citação presentes e apropriadas ?
+
+1. ( não em tudo): Multiplas citações incorretas OU citações não fornecidas 
+2. Uma citação incorreta OU citações agrupadas juntas e não com afirmação individual
+3.Citação correta mas algumas afirmações perderam a afirmação.
+4. Todas afirmação citada com alguma relevancia de priorização
+5. (extrema): Toda afirmação citada corretamente e priorizada pela relevancia.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Experiencial
+                        <br><strong>Termos/justificativa:</strong> assertion 
+provided
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1. As citações estão presentes e são adequadas?
+
+1 (De jeito nenhum): Múltiplas citações incorretas OU Nenhuma citação fornecida
+2: Uma citação incorreta OU citações agrupadas e não como afirmações individuais
+3: Citações corretas, mas algumas afirmações faltam citação
+4: Todas as afirmações citadas corretamente, com alguma priorização por relevância
+5 (Extremamente): Todas as afirmações citadas corretamente e priorizadas por relevância</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i1">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i1" name="consenso__i1" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i1">Divergências e decisão</label>
+                    <textarea id="justificativa__i1" name="justificativa__i1" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i2">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">2</span>
+                <div>
+                    <h2>Accurate</h2>
+                    
+                    <div class="pdsqi9-glosa">O resumo é verídico e livre de informação incorreta (fabricação ou falsificação).</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">2. Is the summary accurate in extraction (extractive summarization)?
+
+a. The summary is true and free of incorrect information. (Example: Falsification – the provider states the last surveillance study was negative for active cancer, but the LLM summarizes the patient still has active disease.)
+b. Incorrect Information can be a result of fabrication or falsification
+   i. Fabrication is when the response contains entirely made-up information or data and includes plausible but non-existent facts in the summary
+   ii. Falsification is when the response contains distorted information and includes changing critical details of facts, so they are no longer true from the source notes
+   iii. Examples of problematic assertions: It's not in the note, it was correct at one point but not at the time of summarization, a given assertion was changed to a different status (given symptoms of COVID but patient ended up not having COVID; however, LLM generates COVID as a diagnosis).
+c. Something can be an incorrect statement by the provider in the note (not clinically plausible) but if the LLM summarizes the same statement from the provider then it's NOT a fabrication or falsification.
+
+1 (Not at All): Multiple major errors with overt falsifications or fabrications
+2: A major error in assertion occurs with an overt falsification or fabrication
+3: At least one assertion contains a misalignment that is stated from a source note but the wrong context, including incorrect specificity in diagnosis or treatment
+4: At least one assertion is misaligned to the provider's source or timing but still factual in diagnosis, treatment, etc.
+5 (Extremely): All assertions can be traced back to the notes</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2. O resumo na extração é necessário ( extração resumida) ? 
+
+a. O resumo é verdadeiro e livre de informações incorretas ( Exemplo: Falcificação - O provedor do ultimo estudo de vigilancia  foi negativo para cancer, mas o LLM resumiu que o paciente ainda tem cancer)
+b. informação incorreta pode ser resultado da fabricação ou falsificação
+   i. Fabricação é quando a resposta contem  todas informações e dados plausíveis mas não existem os fatos no resumo.
+   ii. Falsificação é quando a resposta contem distorções na informação e inclui mudanças criticas nos detalhes e fatos , então eles não estão longe da verdade do assunto. 
+   iii. Exemplo de afirmação  problemática: Isto poden não ser notado, isto foi correto por um ponto mas não no momento do resumo, a afirmação entregue foi mudada para um status diferente (Sintomas de COVID mas paciente morreram sem ter COVID; contudo , LLM gerou o diagnóstico de COVID) 
+c. Algumas podem ter declarações  incorretas fornecidas da nota ( não são clinicamente plausíveis )  mas se a LLM resumir a mesma declaração do  fornecedor não é fabricação ou falcificação.
+
+1. (Não para todos); Multiplos erros maiores com falcificação e fabricação
+2: o maior erro na afirmativa ocore na afirmação e fabricação
+3: A ultima afirmação contem a mistura de declaração do assunto mas no contexto errado , incluindo especificação incorreta no diagnóstico e tratamento 
+4: A ultima afirmação é misturada para fornecer assunto ou tempo mas continua real ao diagnóstico e tratamento e etc .
+5: (extrema): Tota afirmação pode ser retirada da nota</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> Semântica, Conceitual
+                        <br><strong>Termos/justificativa:</strong> provides 
+assertion 
+statement
+traced back 
+misalignment
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2. O resumo é preciso na extração (resumo extrativo)?
+
+a. O resumo é verdadeiro e livre de informações incorretas. (Exemplo: Falsificação – o profissional afirma que o último estudo foi negativo para câncer ativo, mas o LLM resume que o paciente ainda tem doença ativa.)
+b. Informações incorretas podem resultar de fabricação ou falsificação.
+i. Fabricação ocorre quando a resposta contém informações ou dados totalmente inventados e inclui fatos plausíveis, porém inexistentes, no resumo.
+ii. Falsificação ocorre quando a resposta contém informações distorcidas e inclui a alteração de detalhes críticos dos fatos, de modo que elas não são mais verdadeiras em relação às notas de origem.
+iii. Exemplos de afirmações problemáticas: Não está na nota, estava correta em determinado momento, mas não no momento da elaboração do resumo, uma dada afirmação cujo status foi alterado (sintomas sugestivos de COVID, mas o paciente terminou não tendo COVID; no entanto, o LLM gera COVID como diagnóstico).
+c. Uma afirmação feita pelo profissional de saúde na nota pode estar incorreta (clinicamente implausível); contudo, se o LLM resume essa mesma afirmação do profissional, isso NÃO constitui fabricação ou falsificação.
+
+1 (De forma alguma): Múltiplos erros graves com falsificações ou fabricações evidentes.
+2: Ocorre um erro grave de afirmação envolvendo falsificação ou fabricação evidente.
+3: Pelo menos uma afirmação apresenta uma divergência em relação à nota de origem (ex.: contexto incorreto, incluindo especificidade errônea no diagnóstico ou tratamento).
+4: Pelo menos uma afirmação diverge da fonte ou do momento temporal indicado pelo profissional, mas permanece correta quanto aos fatos (diagnóstico, tratamento, etc.).
+5 (Totalmente): Todas as afirmações podem ser rastreadas até as notas originais.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i2">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i2" name="consenso__i2" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i2">Divergências e decisão</label>
+                    <textarea id="justificativa__i2" name="justificativa__i2" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i3">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">3</span>
+                <div>
+                    <h2>Thorough</h2>
+                    
+                    <div class="pdsqi9-glosa">Cobre as questões pertinentes do paciente, distinguindo omissões pertinentes de potencialmente pertinentes.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">3. Is the summary thorough without any omissions?
+
+Identify any pertinent or potentially pertinent omissions:
+a. Pertinent omissions refer to essential information required for the specific use case or intended provider, where missing details could directly impact patient care decisions (i.e., information that would prompt an immediate or future action).
+b. Potentially pertinent omissions include relevant details for clinical understanding that may not directly influence the current use case but would still be useful to know.
+c. Example: A consultant recommending a DEXA scan to the family medicine physician is pertinent (action needed), whereas a consultant ordering a DEXA scan themselves is potentially pertinent (useful to know but doesn't require immediate action by the primary provider).
+
+The summary should thoroughly cover all critical patient issues.
+
+1 (Not at All): More than one pertinent omission occurs
+2: One pertinent and multiple potentially pertinent occur
+3: Only one pertinent omission occurs
+4: Some potentially pertinent omissions occur
+5 (Extremely): No pertinent or potentially pertinent omission occur</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3. O resumo é sem omissão ? 
+
+Identificar qualquer importância ou potencial importância omissa :
+a. Importancia omissão se refere à informação essencial e requerida para um caso especifico ou de um prtendido fornecedor , aonde perdeu detalhes que podem diretamente impactar nas decisoes de cuidados do paciente ( ex. informação que pode direcionar imediata ou futura ação )
+b. Omisões potencialmente importantes incluem detalhes relevantes de entendimento clinico que podem não diretamente influenciar o caso atual mas podem ainda assim ser util de saber.
+c. Exemplo: o Consultor recomenda o  rastreamento com DEXA para familiar de medicos ser pertinente ( ação necessária) entretanto o consultor ordena o rastreamento com DEXA para eles mesmo é potencialmente pertinente ( é util para para saber mas não requer imediata acão pelo provedor primario)
+
+O resumo deve cobrir todos os problemas do paciente.
+
+1. ( não para todos) mais de um paciente ocorreu omissão 
+2. Um paciente e multiplos potenciais pacientes pertinente ocorrer
+3.Somente um paciente a omissão ocorreu
+4. alguns potenciais pertinentes omissões ocorrem 
+5. ( extrema): Não pertinete ou potenciais pertinentes omissões ocorram</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> Semântica, Idiomática
+                        <br><strong>Termos/justificativa:</strong> Intended
+Pertinent
+Provider
+Thorought
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3. O resumo é completo e sem omissões?
+
+Identifique qualquer omissão pertinente ou potencialmente pertinente:
+a. Omissões pertinentes referem-se a informações essenciais necessárias para o caso de uso específico ou para o profissional a que se destina, nas quais a ausência de detalhes poderia impactar diretamente as decisões sobre o cuidado do paciente (ou seja, informações que motivariam uma ação imediata ou futura).
+b. Omissões potencialmente pertinentes incluem detalhes relevantes para a compreensão clínica que podem não influenciar diretamente o caso de uso atual, mas que ainda assim seriam úteis.
+c. Exemplo: Um médico consultor recomendar um exame DEXA ao médico de família é algo pertinente (requer ação), enquanto o próprio consultor solicitar um DEXA é potencialmente pertinente (informação útil, mas que não exige ação imediata do profissional primário).
+
+O resumo deve abordar de forma abrangente todas as questões críticas do paciente.
+
+1 (De forma alguma): Ocorrem mais de uma omissão pertinente
+2: Ocorre uma omissão pertinente e multiplas potencialmente pertinentes
+3: Ocorre apenas uma omissão pertinente
+4: Ocorrem algumas omissões potencialmente pertinentes
+5 (Extremamente): Não ocorre nenhuma omissão pertinente ou potencialmente pertinente</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i3">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i3" name="consenso__i3" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i3">Divergências e decisão</label>
+                    <textarea id="justificativa__i3" name="justificativa__i3" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i4">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">4</span>
+                <div>
+                    <h2>Useful</h2>
+                    
+                    <div class="pdsqi9-glosa">É pertinente ao profissional de destino, com informação e análise de valor.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">4. Is the summary useful?
+
+a. All the information is in there that is useful to the target provider/intended audience
+b. The summary is extremely relevant, providing valuable information and/or analysis
+
+1 (Not at All): No assertions are pertinent to the target user
+2: Some assertions are pertinent to the target user
+3: Assertions are pertinent to target provider but level of detail inappropriate (too detailed or not detailed enough)
+4: Not adding any non-pertinent assertions but some assertions are potentially pertinent to target user
+5 (Extremely): Not adding any non-pertinent assertions and level of detail is appropriate to targeted user</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4. O sumario é util ?
+a. Toda a informação que está lá é util para fornecer a audiência 
+b. O resumo é extremante relevante providenciando informações valorosas ou analises
+
+1. (não para todos) . Não tem relevancia  na afirmação do usuario 
+b.O sumario é extremante relevante providenciando valores na informação e na analise 
+2.Algumas afirmações são pertinentes para o usuario principal 
+3.Afirmações são pertinentes para o fornecedor principal mas detalhes inapropriados (muitos detalhada ou sem detalhes suficientes )
+4.Não adicionando nenhuma afirmação pertinente mas algumas afirmaçõas são potencialmente para o usuario principal  
+5. ( extrema) : MNão adicionado nenhuma afirmação pertinente e nivel de detalhes apropriados para o usuario principal</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Conceitual
+                        <br><strong>Termos/justificativa:</strong> Provider - termo confunde 
+assertion - confunde
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4. O resumo é útil?
+
+a. Todas as informações uteis para o profissional/publico alvo estão nele.
+b. O resumo é extremamente relevante, fornecendo informações e/ou análises valiosas
+
+1 (De forma alguma): Nenhuma afirmação é pertinente ao usuário-alvo
+2: Algumas afirmações são pertinentes ao usuário-alvo
+3: As afirmações são pertinentes ao profissional-alvo, mas o nível de detalhamento é inadequado (detalhado demais ou pouco detalhado)
+4: Não inclui afirmações irrelevantes, mas algumas afirmações são potencialmente pertinentes ao usuário-alvo
+5 (Extremamente): Não inclui afirmações irrelevantes e o nível de detalhamento é adequado ao usuário-alvo</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i4">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i4" name="consenso__i4" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i4">Divergências e decisão</label>
+                    <textarea id="justificativa__i4" name="justificativa__i4" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i5">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">5</span>
+                <div>
+                    <h2>Organized</h2>
+                    
+                    <div class="pdsqi9-glosa">É bem estruturado, ajudando a compreender o curso clínico.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">5. Is the summary organized?
+
+a. The summary is well-formed and structured in a way that helps the reader understand the patient's clinical course.
+
+1 (Not at All): All Assertions presented out of order and groupings incoherent (completely disorganized)
+2: Some assertions presented out of order OR grouping incoherent
+3: No change in order or grouping (temporal or systems/problem based) from original input
+4: Logical order or grouping (temporal or systems/problem based) for all assertions but not both
+5 (Extremely): All assertions made with logical order and grouping (temporal or systems/problem based) - completely organized</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5. O resumo é organizado ? 
+
+a. O resumo é bem elaborado e estruturado em qualquer caminho que ajuda o leitos entender o curso clinico do paciente 
+
+1. (Não para todos): Todas afirmações fora da ordem e agupadas de forma errada
+( completa desorganização)
+2.Algumas afirmações presentes fora da ordem OU agrupadas incorretas 
+3.Sem mudanças na ordem ou agrupando (temporal ou sistema / problema base) da colocação original 
+4.Ordem logica ou agrupando (temporal ou sistema/problema base) para toda a afirmação mas não para ambos 
+5. ( extrema) : TOda afirmação feita com lógica na ordem e agrupando ( temporal ou sintema /base problema ) - Completamente organizada</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Idiomática
+                        <br><strong>Termos/justificativa:</strong> inchoerent - traduzi como incorreta , mas não sei se é incoerente 
+well-fomed
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5. O resumo está organizado?
+
+a. O resumo é bem elaborado e estruturado de modo que ajuda o leitor a compreender a evolução clínica do paciente.
+
+1 (De forma alguma): Todas as afirmações apresentadas fora de ordem e agrupamentos incoerentes (completamente desorganizado)
+2: Algumas afirmações apresentadas fora de ordem OU agrupamento incoerente
+3: Nenhuma alteração na ordem ou no agrupamento (temporal ou baseado em sistemas/problemas) em relação aos dados originais
+4: Ordem ou agrupamento lógico (temporal ou baseado em sistemas/problemas) para todas as afirmações, mas não ambos
+5 (Extremamente): Todas as afirmações apresentadas com ordem e agrupamento lógicos (temporal ou baseados em sistemas/problemas) – completamente organizado</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i5">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i5" name="consenso__i5" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i5">Divergências e decisão</label>
+                    <textarea id="justificativa__i5" name="justificativa__i5" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i6">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">6</span>
+                <div>
+                    <h2>Comprehensible</h2>
+                    
+                    <div class="pdsqi9-glosa">É claro, sem ambiguidade ou trechos de difícil entendimento.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">6. Is the summary comprehensible with clarity of language?
+
+a. The summary is clear, without ambiguity or sections that are difficult to understand.
+
+1 (Not at All): Words in sentence structure are overly complex, inconsistent, with terminology that is unfamiliar to the target user
+2: Any use of overly complex, inconsistent, or terminology that is unfamiliar to target user
+3: Unchanged choice of words from input with inclusion of overly complex terms when there was opportunity for improvement
+4: Some inclusion of change in structure and terminology towards improvement
+5 (Extremely): Plain language completely familiar and well-structured to target user</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">6. O resumo é compreensivo com a clareza da linguagem ?
+
+a. O resumo é claro, sem ambiguidade ou sessão que dificulte o entendimento.
+
+1. ( não para todos): palavras na sentença estruturada são complexas , inconstantes com terminologias pouco conhecidas para o usuario principal 
+2. Qualquer uso complexo, inconsitente , ou teminologia que é pouco familiar para o usuário principal 
+3.Escolha inalterada de palavras de inclusão com termos complexos quando foram oportunamente usados para melhorias 
+4.Algumas inclusoes de mudanças na estrutura e terminologia que melhoraram
+5(extrema): linguagem simples completamente familiar e boa estrutura para o usuario principal</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Experiencial, Conceitual
+                        <br><strong>Termos/justificativa:</strong> structura 
+overly
+Unchaged
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">6. O resumo é compreensível e apresenta clareza de linguagem?
+
+a. O resumo é claro, sem ambiguidades ou trechos que são difíceis de compreender.
+
+1 (De forma alguma): Palavras na estrutura das frases são excessivamente complexas, inconsistentes, com terminologia que não é familiart para o usuário-alvo
+2: Qualquer uso de estrutura excessivamente complexa, inconsistência ou terminologia desconhecida para o usuário-alvo
+3: Escolha de palavras mantida em relação ao texto original, com inclusão de termos excessivamente complexos quando havia oportunidade de melhoria
+4: Alguma inclusão de alteração na estrutura e na terminologia visando à melhoria
+5 (Extremamente): Linguagem simples, familiar e bem estruturada para o  usuário-alvo</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i6">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i6" name="consenso__i6" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i6">Divergências e decisão</label>
+                    <textarea id="justificativa__i6" name="justificativa__i6" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i7">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">7</span>
+                <div>
+                    <h2>Succinct</h2>
+                    
+                    <div class="pdsqi9-glosa">É breve, direto e sem redundância.</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">7. Is the summary succinct with economy of language?
+
+a. The summary is brief, to the point, and without redundancy
+
+1 (Not at All): Too wordy across all assertions with redundancy in syntax and semantic
+2: More than one assertion has contextual semantic redundancy
+3: At least one assertion has contextual semantic redundancy or multiple syntactic assertions
+4: No syntax redundancy in assertions and at least one could have been shorter in contextualized semantics
+5 (Extremely): All assertions are captured with fewest words possible and without any redundancy in syntax or semantics</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">7. O resumo é sucinto com economia de linguagem? 
+
+a. O sumario é a apresentação do ponto, e sem redundância
+
+1. ( não para todos): Muitas palavras cruzam toda a afirmação com redundancia na sintaxe e semantica 
+2. Mais de uma afirmação teve contextual semantica redundante ou multiplas afirmações com sintatica redundante.
+3. A ultima afirmação teve redundancia semântica ou multiplas afirmações sintática  
+4. Não há redundancia semântica na afirmação e a ultima pode haver uma pequena contextualização semântica 
+5. (extrema) : toda a afirmação são capturada em poucas palavras possiveis e sem nenhuma redundancia sintatica ou semântica</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> média ·
+                        <strong>Equivalências:</strong> Semântica, Idiomática
+                        <br><strong>Termos/justificativa:</strong> .
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">7. O resumo é conciso e utiliza a linguagem de forma econômica?
+
+a. O resumo é breve, objetivo e sem redundâncias
+
+1 (De forma alguma): Excesso de palavras em todas as afirmações, com redundância  na sintaxe e na semântica
+2: Mais de uma afirmação apresenta redundância semântica contextual
+3: Pelo menos uma afirmação apresenta redundância semântica contextual ou múltiplas afirmações sintáticas
+4: Sem redundância sintática nas afirmações e pelo menos uma poderia ser mais concisa em termos de semântica contextual
+5 (Extremamente): Todas as afirmações são expressas com o menor número possível de palavras e sem nenhuma redundância sintática ou semântica</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i7">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i7" name="consenso__i7" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i7">Divergências e decisão</label>
+                    <textarea id="justificativa__i7" name="justificativa__i7" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i8_portao">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">8</span>
+                <div>
+                    <h2>Synthesized - pergunta-portão</h2>
+                    <p>abstração: sim / não / NA</p>
+                    <div class="pdsqi9-glosa">Pergunta-portão: verifica se há necessidade de abstração no par nota/resumo. Só em caso afirmativo a escala é pontuada.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Pergunta-portão · item próprio</span>
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">8. Is there a need for abstraction in the summary?
+
+a. If no, then NA. If yes, then -&gt; Synthesized: Levels of Abstraction that includes more inference and medical reasoning.</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">8. Tem necessidade de afirmação no resumo ?
+
+a. Se não. ?????  Se sim - sistematizado: niveis de afirmação que incluem mais referências e raciocinio medico</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> Semântica
+                        <br><strong>Termos/justificativa:</strong> vocabulario difícil:
+inferencia 
+NA
+reasoning
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">8. Há necessidade de abstração no resumo?
+
+a. Se não, então NA. Se sim, então -&gt; Sintetizado: Níveis de abstração que incluem mais inferência e raciocínio médico.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i8_portao">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i8_portao" name="consenso__i8_portao" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i8_portao">Divergências e decisão</label>
+                    <textarea id="justificativa__i8_portao" name="justificativa__i8_portao" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i8">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">8</span>
+                <div>
+                    <h2>Synthesized - escala</h2>
+                    <p>condicional ao portão</p>
+                    <div class="pdsqi9-glosa">Havendo necessidade de abstração, demonstra raciocínio e capacidade de elaborar um plano.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Item condicional</span>
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Synthesized (scored only if abstraction is needed):
+
+b. The summary reflects the author's understanding of the patient's status and ability to develop a plan of care
+
+1 (Not at All): Incorrect reasoning or grouping in the connections between the assertions
+2: Abstraction performed when not needed OR groupings were made between assertions that were accurate but not appropriate
+3: Assertions are independently stated without any reasoning or groups over the assertions when there could have been one (missed opportunity to abstract)
+4: Groupings of assertions occur into themes but limited to fully formed reasoning for a final, clinically relevant diagnosis or treatment
+5 (Extremely): Goes beyond relevant groups of events and generates reasoning over the events into a summary that is fully integrated for an overall clinical synopsis with prioritized information</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sintetizado (pontuado apenas se afirmação necessitou):
+
+b. O resumo reflete o entendimento do autor do estado do paciente e abilidade de desenvolver um plano de cuidado
+
+1.(não par todos): Raciocinio errado ou agrupado em conexão entre a afirmação
+2. Texto performa do quando precisou Ou agrupado entre a afirmação que teve acuracia não apropriada 
+3.As Afirmação são independente do estado sem nenhuma raciocinio ou grupo de afirmações quando poderia ter sido uma 
+4.Agrupando as afirmativas ocorre dentro de temas  mas limitados ao pensamento plenamnte formadopara o fim, diagnóstico clinico relevante ou tratamento
+5. (extremo) : Seguindo alem de grupos de relevancia de eventos e geradores de raciocinio no evento dentro do resumno que totalmente integrado ao raciocinio sintomas clincio compriorização na informação</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> Semântica
+                        <br><strong>Termos/justificativa:</strong> Palavras de dicicil entendimento e contexto confuso
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sintetizado (pontuado apenas se a abstração for necessária):
+
+b. O resumo reflete a compreensão do autor sobre a condição do paciente e sua capacidade de desenvolver um plano de cuidados
+
+1 (De forma alguma): Raciocínio ou agrupamento incorreto nas conexões entre as afirmações
+2: Abstração realizada quando não era necessária OU agrupamentos eram feitos entre afirmações que eram precisas mas não apropriados
+3: Afirmações apresentadas independentemente, sem  nenhum raciocínio ou agrupamento entre elas, quando isso poderia ter sido feito (oportunidade perdida para a  abstração)
+4: Agrupamento de afirmações ocorrem em temas, mas limitado ao raciocínio completo para um diagnóstico ou tratamento final clinicamente relevante
+5 (Extremamente): Vai além de grupos relevantes de eventos e gera um raciocínio sobre eles no resumo que é totalmente integrado para uma sinopse clinica com priorização de informações.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i8">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i8" name="consenso__i8" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i8">Divergências e decisão</label>
+                    <textarea id="justificativa__i8" name="justificativa__i8" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Stigmatizing - guia</h2>
+                    <p>orientação de linguagem (a-j)</p>
+                    <div class="pdsqi9-glosa">Guia para identificar linguagem estigmatizante (alíneas a a j).</div>
+                </div>
+                
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">9. Is there presence of stigmatizing language?
+
+a. Please follow the tool in this link: https://www.chcs.org/media/Words-Matter-Strategies-to-Reduce-Bias-in-Electronic-Health-Records_102022.pdf
+b. Refrain from using discrediting or exaggerated words, such as claims, insists, or reportedly
+c. Reflect and be thoughtful about personal assumptions regarding which patients are believed, and which patients are not believed
+d. Quotes that imitate a disbelief ("The patient's mother said that the 'pills don't work' for her child") or perpetuate stereotypes
+e. Judgment or discrediting words that suggest doubt ("He claims or insists that he is in pain;" "She reportedly had two seizures.").
+f. Want to see person-first language such as the "patient with diabetes" instead of the "diabetic patient"
+g. Minimize blame, labeling, and judgment. Opting for "She is not tolerating oxygen" instead of the judgmental, "She is refusing to wear oxygen." Providers can also avoid judging situations that can happen to anyone or that might have valid explanations behind them.
+h. Language that a person "is" the problem, rather than "has" a problem. Uses "Addict", "alcoholic", "drug abuser" instead of "person with substance use disorder". The term "abuse" was found to have a high association with negative judgments and punishment
+i. Elicits negative associations, punitive attitudes, and individual blame
+j. Terms may evoke negative and punitive implicit cognitions such as "dirty urine"</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">9. Existe sistematização de linguagem presente?
+
+a. Por favor siga o link : https://www.chcs.org/media/Words-Matter-Strategies-to-Reduce-Bias-in-Electronic-Health-Records_102022.pdf
+b.Usando discredito ou exagerando nas palavras assim como insistênncia ou reportanado 
+c.Reflita e pense sobre o que o paciente acredita ou não acredita 
+d.</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito alta ·
+                        <strong>Equivalências:</strong> Semântica, Idiomática
+                        <br><strong>Termos/justificativa:</strong> Texto muito dicicio de focabulario, não consegui traduzir com minha capacidade , teria que usar ferramentas de tradução , preferi deixar em sem resposta
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">9. Há presença de linguagem estigmatizante?
+
+a. Por favor, siga as orientações da ferramenta disponível neste link: https://www.chcs.org/media/Words-Matter-Strategies-to-Reduce-Bias-in-Electronic-Health-Records_102022.pdf
+b. Evite usar palavras que desacreditam ou exageram, como alega, insiste ou supostamente.
+c. Reflita e pondere sobre suposições pessoais sobre quais pacientes são críveis e quais pacientes não são.
+d. Citações que sugerem descrença ("A mãe do paciente disse que os 'comprimidos não funcionam' para o filho dela") ou perpetuam estereótipos.
+e. Palavras de julgamento ou descrédito e sugerem dúvida ("Ele alega ou insiste que está com dor"; "Ela supostamente teve duas convulsões").
+f. Preferencialmente uso a linguagem centrada na pessoa, como "paciente com diabetes" ao inves de "paciente diabético".
+g. Minimize a culpa, a rotulagem e o julgamento. Opte por "Ela não está tolerando o oxigênio" ao invés da frase de julgamento: "Ela se recusa a usar o oxigênio". Os profissionais também podem evitar julgar situações que podem ocorrer com qualquer pessoa ou que podem ter explicações válidas.
+h. Linguagem que a pessoa "é" o problema, em vez de "ter" um problema. Uso de termos como "viciado", "alcoólatra" ou "abusador de drogas" ao invés de "pessoa com transtorno por uso de substâncias". Verificou-se que o termo "abuso" está fortemente associado a julgamentos negativos e punição.
+i. Provoca associações negativas, atitudes punitivas e culpa ao indivíduo.
+j. Termos que podem evocar cognições implícitas negativas e punitivas, como "urina suja".</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito alta ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i9">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i9" name="consenso__i9" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i9">Divergências e decisão</label>
+                    <textarea id="justificativa__i9" name="justificativa__i9" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9_nota">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Stigmatizing - nota de origem</h2>
+                    <p>pergunta binária Sim/Não</p>
+                    <div class="pdsqi9-glosa">Presença de linguagem estigmatizante na nota de origem.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Binário · 1 de 2</span>
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Is there presence of stigmatizing language in the original note? Yes/No</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Tem presença de sistematização de linguagem no resumo ? Sim/Não</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        <br><strong>Termos/justificativa:</strong> Não houve
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Há presença de linguagem estigmatizante na anotação original? Sim/Não</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i9_nota">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i9_nota" name="consenso__i9_nota" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i9_nota">Divergências e decisão</label>
+                    <textarea id="justificativa__i9_nota" name="justificativa__i9_nota" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9_resumo">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Stigmatizing - resumo</h2>
+                    <p>pergunta binária Sim/Não</p>
+                    <div class="pdsqi9-glosa">Presença de linguagem estigmatizante no resumo gerado.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Binário · 2 de 2</span>
+            </header>
+
+            <div class="pdsqi9-synthesis-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Texto-fonte (inglês)</div>
+                    <pre class="pdsqi9-source">Is there presence of stigmatizing language in the summary? Yes/No</pre>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T1</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Tem presença de sistematização de linguagem no resumo ? Sim/Não</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        <br><strong>Termos/justificativa:</strong> Não hove
+                    </p>
+                </div>
+                <div>
+                    <div class="pdsqi9-col-tag">Tradução T2</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Há presença de linguagem estigmatizante no resumo? Sim/Não</pre>
+                    <p class="pdsqi9-trad-meta">
+                        <strong>Dificuldade:</strong> muito baixa ·
+                        <strong>Equivalências:</strong> nenhuma
+                        
+                    </p>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="consenso__i9_resumo">Versão síntese (T-12)</label>
+                    
+                    <textarea id="consenso__i9_resumo" name="consenso__i9_resumo" class="form-control pdsqi9-sintese-textarea" placeholder="Versão conciliada por consenso."></textarea>
+                    
+                    <label class="pdsqi9-col-tag mt-4" for="justificativa__i9_resumo">Divergências e decisão</label>
+                    <textarea id="justificativa__i9_resumo" name="justificativa__i9_resumo" class="form-control pdsqi9-decisao-textarea" placeholder="Divergências entre T1 e T2 e motivo da redação escolhida."></textarea>
+                    
+                    
+                </div>
+            </div>
+        </section>
+    
+
+    <section class="panel p-5">
+        <label class="field-label" for="observacoes_sintese">Observações gerais da síntese</label>
+        
+        <textarea id="observacoes_sintese" name="observacoes_gerais" class="form-control pdsqi9-obs-textarea mt-2" placeholder="Critérios de conciliação, padrões terminológicos acordados e pendências para o comitê."></textarea>
+        
+        
+        <div class="mt-4 flex flex-col sm:flex-row gap-3 sm:items-center">
+            
+            <button type="button" class="btn-success" onclick="abrirModalEnvio()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+                Enviar dados
+            </button>
+            
+            <a href="#" class="btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" class="lucide lucide-arrow-left h-4 w-4" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                Voltar para etapas
+            </a>
+            
+        </div>
+    </section>
+</form>
+
+
+<div class="pdsqi9-fab" aria-label="Salvar rascunho">
+    <button type="button" class="btn-primary pdsqi9-fab-btn" onclick="salvarRascunho()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="save" class="lucide lucide-save h-4 w-4" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
+        Salvar rascunho
+    </button>
+</div>
+
+<div id="modal-envio" class="pdsqi9-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-envio-titulo" hidden="">
+    <div class="pdsqi9-modal">
+        <div class="pdsqi9-modal-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle" class="lucide lucide-alert-triangle h-5 w-5 text-amber-600" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+            <h2 id="modal-envio-titulo" class="text-base font-semibold">Confirmar envio dos dados</h2>
+        </div>
+        <p class="text-sm text-muted mt-4">Após o envio, <strong>não será possível fazer novas edições</strong> nesta etapa. Verifique se a síntese T-12 está completa antes de continuar.</p>
+        <div class="pdsqi9-modal-actions">
+            <button type="button" class="btn-ghost" onclick="fecharModalEnvio()">Cancelar</button>
+            <button type="button" class="btn-danger" onclick="confirmarEnvio()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+                Confirmar envio
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function salvarRascunho() {
+    document.getElementById('form-action').value = 'rascunho';
+    document.getElementById('form-etapa2').submit();
+}
+function abrirModalEnvio() {
+    document.getElementById('modal-envio').hidden = false;
+}
+function fecharModalEnvio() {
+    document.getElementById('modal-envio').hidden = true;
+}
+function confirmarEnvio() {
+    document.getElementById('form-action').value = 'enviar';
+    document.getElementById('form-etapa2').submit();
+}
+document.getElementById('modal-envio').addEventListener('click', function(e) {
+    if (e.target === this) fecharModalEnvio();
+});
+</script>
+
+
+
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="app-container flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-0">
+            <span>© 2026 DIID. Todos os direitos reservados.</span>
+            <div class="flex items-center gap-4">
+                
+    <a href="#" class="text-github-light-link hover:underline dark:text-github-dark-link">
+        Documentação Externa
+    </a>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+        document.addEventListener('htmx:afterSwap', function() {
+            lucide.createIcons();
+        });
+    </script>
+    
+    <script>
+        // Reinicializa ícones se houver carregamento parcial via HTMX
+        document.addEventListener('htmx:afterSwap', function(evt) {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+
+
+
+</body></html>

@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme-default="light" x-data="{ darkMode: document.documentElement.classList.contains('dark'), mobileNavOpen: false }" :class="{ 'dark': darkMode }" style="color-scheme: light;"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Retrotradução - PDSQI-9</title>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="#">
+
+<script>
+    (function() {
+        var root = document.documentElement;
+
+        function defaultIsDark() {
+            var themeDefault = root.getAttribute('data-theme-default') || 'light';
+
+            if (themeDefault === 'system') {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            return themeDefault === 'dark';
+        }
+
+        function getStoredTheme() {
+            try {
+                return window.localStorage.getItem('theme');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function applyTheme(isDark) {
+            root.classList.toggle('dark', isDark);
+            root.style.colorScheme = isDark ? 'dark' : 'light';
+        }
+
+        // Páginas sem alternador (ex.: cadastro de participante) podem travar o tema
+        // com data-theme-fixed="light|dark": a preferência salva é ignorada e o
+        // tema não pode ser alterado enquanto a página estiver aberta.
+        var fixedTheme = root.getAttribute('data-theme-fixed');
+        var isFixed = fixedTheme === 'dark' || fixedTheme === 'light';
+
+        var storedTheme = getStoredTheme();
+        var isDark = isFixed
+            ? fixedTheme === 'dark'
+            : (storedTheme ? storedTheme === 'dark' : defaultIsDark());
+
+        applyTheme(isDark);
+
+        window.DIIDTheme = {
+            apply: isFixed ? function() { applyTheme(isDark); } : applyTheme,
+            save: function(nextIsDark) {
+                if (isFixed) {
+                    applyTheme(isDark);
+                    return;
+                }
+
+                applyTheme(nextIsDark);
+
+                try {
+                    window.localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+                } catch (error) {}
+            }
+        };
+    })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/css2_pOlA.css" rel="stylesheet">
+<link rel="stylesheet" href="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/app_pOlA.css">
+<link rel="stylesheet" href="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/datatables-2.2.2.min_pOlA.css">
+
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/jquery-3.7.1.slim.min_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/datatables-2.2.2.min_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/htmx-1.9.10.min_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/alpinejs-3.15.11.min_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/lucide-1.12.0.min_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/datatable-init_pOlA.js" defer="defer"></script>
+<script src="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/dialog_pOlA.js" defer="defer"></script>
+
+
+    
+<link rel="stylesheet" href="Retrotradu%C3%A7%C3%A3o%20-%20PDSQI-9_files/ia_na_alta_pOlA.css">
+
+<style>                      .htmx-indicator{opacity:0}                      .htmx-request .htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                      .htmx-request.htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                    </style></head>
+<body class="flex min-h-screen flex-col font-sans vsc-initialized">
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-github-light-canvas focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-github-light-textPrimary focus:shadow-soft">
+        Ir para o conteúdo
+    </a>
+
+    <nav class="top-nav">
+    <div class="app-container flex items-center justify-between gap-4 py-3">
+        <div class="flex min-w-0 items-center gap-2">
+            <!-- Hamburger (mobile only) -->
+            <button type="button" @click="mobileNavOpen = true" :aria-expanded="mobileNavOpen" aria-label="Abrir menu" class="hamburger-btn sm:hidden shrink-0" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" aria-hidden="true" class="lucide lucide-menu h-5 w-5"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+            </button>
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="flex min-w-0 items-center gap-1 overflow-hidden">
+                <!-- Portal DIID (nível raiz) -->
+                
+                <a href="#" class="breadcrumb-item shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="blocks" aria-hidden="true" class="lucide lucide-blocks h-4 w-4 shrink-0"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"></path><rect x="14" y="2" width="8" height="8" rx="1"></rect></svg>
+                    <span>Portal DIID</span>
+                </a>
+                
+
+                
+                
+                <span class="breadcrumb-separator shrink-0" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <a href="#" class="breadcrumb-item shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flask-conical" aria-hidden="true" class="lucide lucide-flask-conical h-4 w-4 shrink-0"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>
+                    <span class="truncate">Pesquisa</span>
+                </a>
+                
+                
+                
+                <span class="breadcrumb-separator shrink-0 hidden sm:flex" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <a href="#" class="breadcrumb-item shrink-0 hidden sm:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="languages" aria-hidden="true" class="lucide lucide-languages h-4 w-4 shrink-0"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+                    <span class="truncate">Adaptação PDSQI-9</span>
+                </a>
+                
+                
+                
+                <span class="breadcrumb-separator shrink-0 hidden sm:flex" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                </span>
+                
+
+                
+                <span class="breadcrumb-item breadcrumb-item-active min-w-0 hidden sm:flex" aria-current="page">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="repeat-2" aria-hidden="true" class="lucide lucide-repeat-2 h-4 w-4 shrink-0"><path d="m2 9 3-3 3 3"></path><path d="M13 18H7a2 2 0 0 1-2-2V6"></path><path d="m22 15-3 3-3-3"></path><path d="M11 6h6a2 2 0 0 1 2 2v10"></path></svg>
+                    <span class="truncate">Etapa 3 · Retrotradução</span>
+                </span>
+                
+                
+            </nav>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-2">
+            <button type="button" @click="darkMode = !darkMode; window.DIIDTheme.save(darkMode)" class="theme-toggle" aria-label="Alternar tema">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="moon" aria-hidden="true" x-show="!darkMode" class="lucide lucide-moon h-4 w-4"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun" aria-hidden="true" x-show="darkMode" class="lucide lucide-sun h-4 w-4" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            </button>
+
+            <div class="relative" x-data="{ userMenuOpen: false }" @keydown.escape.window="userMenuOpen = false">
+    <button type="button" class="user-menu-button" @click="userMenuOpen = !userMenuOpen" aria-haspopup="true" :aria-expanded="userMenuOpen.toString()" aria-expanded="false">
+        <span class=" brand-mark brand-mark-user h-9 w-9 text-sm font-semibold">
+            G
+        </span>
+        <span class="hidden min-w-0 sm:block">
+            <span class="block max-w-36 truncate text-sm font-semibold text-primary">LOREN IPSUM (DEMONSTRAÇÃO)</span>
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down hidden h-4 w-4 text-github-light-textSecondary dark:text-github-dark-textSecondary sm:block"><path d="m6 9 6 6 6-6"></path></svg>
+    </button>
+
+    <div x-show="userMenuOpen" x-transition.origin.top.right="" @click.outside="userMenuOpen = false" class="dropdown-surface" style="display: none;">
+        <div class="border-b border-github-light-borderMuted px-4 py-3 dark:border-github-dark-borderMuted">
+            <p class="truncate text-sm font-semibold text-primary">LOREN IPSUM (DEMONSTRAÇÃO)</p>
+            <p class="truncate text-xs text-muted">Usuário interno</p>
+        </div>
+        <div class="p-1.5">
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-round" aria-hidden="true" class="lucide lucide-user-round h-4 w-4"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+                Minha conta
+            </a>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="key-round" aria-hidden="true" class="lucide lucide-key-round h-4 w-4"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
+                Alterar senha
+            </a>
+            
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-plus" aria-hidden="true" class="lucide lucide-user-plus h-4 w-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></svg>
+                Criar usuário
+            </a>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield" aria-hidden="true" class="lucide lucide-shield h-4 w-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                Django Admin
+            </a>
+            
+            <form method="post" action="/logout/">
+                <input type="hidden" name="csrfmiddlewaretoken" value="demo-statico">
+                <button type="submit" class="menu-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="log-out" aria-hidden="true" class="lucide lucide-log-out h-4 w-4"><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+                    Sair
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+    
+
+
+
+
+
+
+
+
+
+
+<!-- Overlay -->
+<div x-show="mobileNavOpen" x-transition:enter="transition-opacity duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="mobileNavOpen = false" class="mobile-nav-overlay" aria-hidden="true" style="display: none"></div>
+
+<!-- Drawer -->
+<div x-show="mobileNavOpen" x-transition:enter="transition-transform duration-300" x-transition:enter-start="mobile-nav-slide-out" x-transition:enter-end="mobile-nav-slide-in" x-transition:leave="transition-transform duration-300" x-transition:leave-start="mobile-nav-slide-in" x-transition:leave-end="mobile-nav-slide-out" @keydown.escape.window="mobileNavOpen = false" x-effect="if (mobileNavOpen) $nextTick(() =&gt; $refs.closeBtn &amp;&amp; $refs.closeBtn.focus())" class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="display: none">
+    <!-- Header -->
+    <div class="mobile-nav-drawer-header">
+        <a href="#" @click="mobileNavOpen = false" class="flex items-center gap-2">
+            <span class="brand-mark h-7 w-7 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="blocks" aria-hidden="true" class="lucide lucide-blocks h-4 w-4"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"></path><rect x="14" y="2" width="8" height="8" rx="1"></rect></svg>
+            </span>
+            <span class="text-sm font-semibold text-primary">Portal DIID</span>
+        </a>
+        <button x-ref="closeBtn" type="button" @click="mobileNavOpen = false" class="hamburger-btn" aria-label="Fechar menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" aria-hidden="true" class="lucide lucide-x h-5 w-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto py-2" aria-label="Navegação principal">
+
+        <!-- Pesquisa -->
+        <p class="mobile-nav-section-title">Aplicações</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flask-conical" aria-hidden="true" class="lucide lucide-flask-conical h-4 w-4 shrink-0"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>
+            Pesquisa
+        </a>
+
+        <!-- Pesquisadores -->
+        <p class="mobile-nav-section-title">Pesquisadores</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" aria-hidden="true" class="lucide lucide-layout-dashboard h-4 w-4 shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+            Painel
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text h-4 w-4 shrink-0"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            Altas Médicas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="database" aria-hidden="true" class="lucide lucide-database h-4 w-4 shrink-0"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+            Jornadas Brutas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle" aria-hidden="true" class="lucide lucide-check-circle h-4 w-4 shrink-0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+            Jornadas Limpas
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" aria-hidden="true" class="lucide lucide-users h-4 w-4 shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            Painel de Avaliadores
+        </a>
+
+        
+        <p class="mobile-nav-section-title">Avaliadores</p>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout-dashboard" aria-hidden="true" class="lucide lucide-layout-dashboard h-4 w-4 shrink-0"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+            Visão Geral
+        </a>
+        <a href="#" @click="mobileNavOpen = false" class="mobile-nav-link mobile-nav-link-sub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="play-circle" aria-hidden="true" class="lucide lucide-play-circle h-4 w-4 shrink-0"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+            Iniciar Avaliação
+        </a>
+        
+
+    </nav>
+</div>
+
+
+
+
+    <main id="conteudo" class="app-main ">
+        
+
+        
+    
+<section class="mb-8">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            
+            <p class="page-kicker">Etapa 3</p>
+            
+            <h1 class="page-title mt-1">Retrotradução cega (RT)</h1>
+            
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-muted">Verta a síntese final (T-12F) enviada de volta ao inglês sem consultar o instrumento original.</p>
+            
+        </div>
+
+        
+    </div>
+</section>
+
+
+
+
+
+
+<section class="pdsqi9-translation-toolbar panel">
+    <div>
+        <p class="page-kicker">Produto da etapa</p>
+        <p class="text-sm text-muted mt-1">A fonte de trabalho é exclusivamente a síntese final T-12F enviada; o original em inglês não é exibido nesta tela.</p>
+    </div>
+    <div class="pdsqi9-source-slots" aria-label="Síntese carregada">
+        <span><strong>T-12F</strong>enviada</span>
+        <span><strong>16</strong>trecho(s)</span>
+    </div>
+</section>
+
+<section class="pdsqi9-how-grid mt-6" aria-label="Fluxo da retrotradução">
+    <div class="panel p-4"><strong>1. Leia</strong><span>Use apenas o português enviado.</span></div>
+    <div class="panel p-4"><strong>2. Retrotraduza</strong><span>Verta cada trecho ao inglês.</span></div>
+    <div class="panel p-4"><strong>3. Comente</strong><span>Registre ambiguidades e incertezas.</span></div>
+    <div class="panel p-4"><strong>4. Salve</strong><span>Persistência local da Etapa 3.</span></div>
+</section>
+
+<form method="post" class="mt-6 space-y-6" id="form-etapa3">
+    <input type="hidden" name="csrfmiddlewaretoken" value="demo-statico">
+    <input type="hidden" name="action" id="form-action" value="rascunho">
+    
+    
+        
+        <div class="pdsqi9-group-header">
+            <span>Seções gerais</span>
+        </div>
+        
+        <section class="pdsqi9-translation-item" id="g_instr">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Trecho 1 · Instruções gerais</h2>
+                    <p>apresentação do instrumento</p>
+                    <div class="pdsqi9-glosa">Apresentação do instrumento e instrução de que a avaliação é feita no nível da nota.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Título (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Instrumento de Avaliação da Qualidade do Resumo da Documentação do Profissional de Saúde (PDSQI-9) para Inteligência Artificial Generativa</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__titulo__g_instr">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__titulo__g_instr" name="retro__titulo__g_instr" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Descrição (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Este instrumento é uma versão adaptada do Physician Documentation Quality Instrument - (PDQI-9; Stetson et al., Appl Clin Inform, 2012, PMC3347480), originalmente desenvolvido para avaliar a qualidade da documentação médica. Ele foi reformulado para avaliar a capacidade de sumarização dessa documentação por modelos de linguagem de grande escala (LLMs) e renomeado como Provider Documentation Quality and Summarization Instrument (PDSQI-9). O processo de reformulação seguiu uma metodologia semi-Delphi, envolvendo a participação de especialistas em fatores humanos, ciência de dados e medicina clínica da Universidade de Wisconsin-Madison, Universidade do Colorado-Denver, UW Health e Epic Systems. A avaliação é realizada no nível da evolução clínica para cada um dos critérios.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__descricao__g_instr">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__descricao__g_instr" name="retro__descricao__g_instr" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__g_instr">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__g_instr" name="comentarios__g_instr" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_asser">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Trecho 2 · Nota sobre “asserção”</h2>
+                    <p>definição de termo</p>
+                    <div class="pdsqi9-glosa">Definição de asserção como afirmação que pode ter uma ou mais frases.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Síntese final (T-12F) (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">*Uma afirmação é uma declaração que pode ser constituída de uma única frase ou múltiplas frases.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__sintese_final__g_asser">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__sintese_final__g_asser" name="retro__sintese_final__g_asser" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__g_asser">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__g_asser" name="retro__observacoes__g_asser" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__g_asser">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__g_asser" name="comentarios__g_asser" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_extr">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Trecho 3 · Sumarização extrativa</h2>
+                    <p>definição (antecede o item 2)</p>
+                    <div class="pdsqi9-glosa">Seleção verbatim de trechos da fonte, sem alterar a redação.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Síntese final (T-12F) (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">A sumarização baseada em extração envolve selecionar e extrair frases ou sentenças exatas diretamente do texto original, sem alterar a sua redação. O foco está em identificar as partes mais importantes do texto e reproduzi-las literalmente para formar o resumo.
+
+Por exemplo, em um contexto clínico, se o texto original afirmar: “O paciente apresentou falta de ar, teve uma contagem elevada de leucócitos e exibiu um infiltrado no lobo inferior direito na radiografia de tórax”, um modelo de extração selecionaria e apresentaria essas mesmas frases como resumo. Não haveria nenhuma tentativa de inferir ou reformular o conteúdo - apenas uma seleção de detalhes-chave diretamente da fonte.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__sintese_final__g_extr">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__sintese_final__g_extr" name="retro__sintese_final__g_extr" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__g_extr">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__g_extr" name="retro__observacoes__g_extr" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__g_extr">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__g_extr" name="comentarios__g_extr" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="g_abst">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">§</span>
+                <div>
+                    <h2>Trecho 4 · Sumarização abstrativa</h2>
+                    <p>definição (antecede o item 8)</p>
+                    <div class="pdsqi9-glosa">Paráfrase e síntese da informação em novas frases.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Síntese final (T-12F) (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">A sumarização baseada em abstração vai além da simples extração de frases ou expressões exatas do texto original. Em vez disso, envolve parafrasear e sintetizar as informações para produzir novas frases que capturem o significado essencial. Isso é semelhante à maneira como um ser humano leria uma passagem e, em seguida, reformularia as ideias-chave com suas próprias palavras.
+
+Por exemplo, em um contexto clínico, em vez de listar resultados de exames e medicamentos individualmente (por exemplo, "o paciente apresentou HbA1c de 9,2%, recebeu prescrição de metformina e relatou não estar seguindo as recomendações alimentares"), um modelo de abstração poderia sumarizar essas informações da seguinte forma: "o paciente apresenta diabetes mal controlada devido à adesão insuficiente ao tratamento e às mudanças no estilo de vida". Essa abordagem proporciona uma compreensão sintetizada do quadro geral do paciente, em vez de apenas enumerar dados isolados.
+
+Para avaliar a abstração, deve-se analisar se o resumo captura a essência do conteúdo original, se as afirmações parafraseadas são precisas e se o modelo é capaz de inferir conceitos de nível superior a partir de detalhes específicos fornecidos no texto de origem.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__sintese_final__g_abst">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__sintese_final__g_abst" name="retro__sintese_final__g_abst" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__g_abst">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__g_abst" name="retro__observacoes__g_abst" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__g_abst">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__g_abst" name="comentarios__g_abst" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <div class="pdsqi9-group-header">
+            <span>Itens do PDSQI-9</span>
+        </div>
+        
+        <section class="pdsqi9-translation-item" id="i1">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">1</span>
+                <div>
+                    <h2>Trecho 5 · Cited</h2>
+                    
+                    <div class="pdsqi9-glosa">As citações que ligam afirmações às notas de origem estão presentes e são apropriadas.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Citações 
+As citações relacionadas às afirmações presentes nas evoluções estão presentes e são apropriadas.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i1" name="retro__nome_atributo__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1. As citações estão presentes e são adequadas?
+
+</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i1" name="retro__enunciado__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Múltiplas citações incorretas OU nenhuma citação fornecida.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i1" name="retro__nota1__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2 Uma citação incorreta OU citações agrupadas em bloco e sem afirmações individuais.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i1" name="retro__nota2__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3 Citações corretas, porém algumas afirmações estão sem citação.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i1" name="retro__nota3__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4 Cada afirmação está citada corretamente, com alguma priorização de relevância.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i1" name="retro__nota4__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Todas as afirmações estão corretamente citadas e priorizadas por relevância.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i1">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i1" name="retro__nota5__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i1">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i1" name="retro__observacoes__i1" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i1">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i1" name="comentarios__i1" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i2">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">2</span>
+                <div>
+                    <h2>Trecho 6 · Accurate</h2>
+                    
+                    <div class="pdsqi9-glosa">O resumo é verídico e livre de informação incorreta (fabricação ou falsificação).</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Acurácia
+O resumo é verídico e livre de informação incorreta (fabricação ou falsificação).</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i2" name="retro__nome_atributo__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2. O resumo é preciso quanto à extração (sumarização extrativa)?
+
+a. O resumo é verdadeiro e isento de informações incorretas. (Exemplo: Falsificação - O profissional de saúde registra que o último exame de rastreamento foi negativo para câncer ativo, mas o LLM resume que o paciente ainda apresenta doença ativa).
+
+b. As informações incorretas podem decorrer de fabricação ou falsificação:
+i. Fabricação: Ocorre quando a resposta contém dados ou informações inteiramente inventados, incluindo no resumo fatos plausíveis, porém inexistentes.
+ii. Falsificação: Ocorre quando a resposta distorce informações e altera detalhes críticos dos fatos, de modo que deixam de ser verdadeiros em relação à evolução de origem.
+iii. Exemplos de afirmações problemáticas: Não consta na evolução; estava correto em determinado momento, mas não no momento da sumarização; uma determinada afirmação foi alterada para um status diferente (apresentava sintomas de COVID, mas o paciente acabou não tendo COVID; no entanto, o LLM gera COVID como diagnóstico).
+
+c. Uma afirmação pode ser incorreta por parte do profissional na evolução (clinicamente implausível), mas se o LLM resumir a mesma afirmação, então NÃO se trata de uma invenção ou falsificação.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i2" name="retro__enunciado__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Múltiplos erros graves, com falsificações ou fabricações evidentes.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i2" name="retro__nota1__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2 Erro grave em uma afirmação, com falsificação ou fabricação evidente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i2" name="retro__nota2__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3 Pelo menos uma afirmação apresenta desalinhamento - o dado consta na evolução, mas foi colocado em contexto errado, incluindo especificidade incorreta do diagnóstico ou tratamento.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i2" name="retro__nota3__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4 Pelo menos uma afirmação diverge da fonte quanto ao contexto ou momento temporal, mas permanece correta em relação aos fatos (diagnóstico, tratamento, etc.).</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i2" name="retro__nota4__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Todas as afirmações podem ser rastreadas e confirmadas nas evoluções originais.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i2">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i2" name="retro__nota5__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i2">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i2" name="retro__observacoes__i2" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i2">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i2" name="comentarios__i2" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i3">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">3</span>
+                <div>
+                    <h2>Trecho 7 · Thorough</h2>
+                    
+                    <div class="pdsqi9-glosa">Cobre as questões pertinentes do paciente, distinguindo omissões pertinentes de potencialmente pertinentes.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Exaustividade
+O resumo cobre as questões pertinentes do paciente, distinguindo omissões pertinentes de potencialmente pertinentes.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i3" name="retro__nome_atributo__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3. O resumo é completo, sem nenhuma omissão?
+
+Identifique quaisquer omissões pertinentes ou potencialmente pertinentes:
+
+a. Omissões pertinentes: referem-se a informações essenciais necessárias para o caso de uso específico ou para o profissional de saúde a quem se destina, nas quais a ausência de detalhes poderia impactar diretamente as decisões de cuidado ao paciente (ou seja, informações que motivariam uma ação imediata ou futura).
+b. Omissões potencialmente pertinentes: incluem detalhes relevantes para a compreensão clínica que podem não influenciar diretamente o caso atual, mas que ainda assim seriam úteis de conhecer.
+c. Exemplo: Um médico especialista recomendar um exame de densitometria óssea (DEXA) ao médico de família é uma informação pertinente (requer ação), ao passo que o próprio especialista solicitar o exame DEXA é uma informação potencialmente pertinente (é útil saber, mas não exige uma ação imediata do médico assistente).
+
+O resumo deve abordar de forma abrangente todas as questões críticas do paciente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i3" name="retro__enunciado__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Ocorre mais de uma omissão pertinente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i3" name="retro__nota1__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2: Ocorre uma omissão pertinente e múltiplas omissões potencialmente pertinentes.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i3" name="retro__nota2__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3: Ocorre apenas uma omissão pertinente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i3" name="retro__nota3__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4: Ocorrem algumas omissões potencialmente pertinentes.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i3" name="retro__nota4__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Não ocorre nenhuma omissão pertinente nem potencialmente pertinente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i3">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i3" name="retro__nota5__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i3">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i3" name="retro__observacoes__i3" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i3">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i3" name="comentarios__i3" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i4">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">4</span>
+                <div>
+                    <h2>Trecho 8 · Useful</h2>
+                    
+                    <div class="pdsqi9-glosa">É pertinente ao profissional de destino, com informação e análise de valor.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Utilidade
+O resumo é pertinente ao profissional a quem se destina, com informação e análise de valor.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i4" name="retro__nome_atributo__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4. O resumo é útil?
+
+a. Contém todas as informações úteis para o profissional de saúde a quem se destina / público-alvo.
+
+b. O resumo é extremamente relevante, fornecendo informações e/ou análises de alto valor.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i4" name="retro__enunciado__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Nenhuma afirmação é pertinente ao usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i4" name="retro__nota1__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2: Algumas afirmações são pertinentes ao usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i4" name="retro__nota2__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3: As afirmações são pertinentes ao usuário-alvo, mas o nível de detalhamento é inadequado (excessivamente detalhado ou com falta de detalhes).</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i4" name="retro__nota3__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4: Não inclui afirmações irrelevantes, porém algumas afirmações são apenas potencialmente pertinentes ao usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i4" name="retro__nota4__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Não inclui afirmações irrelevantes e o nível de detalhamento é totalmente adequado ao usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i4">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i4" name="retro__nota5__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i4">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i4" name="retro__observacoes__i4" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i4">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i4" name="comentarios__i4" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i5">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">5</span>
+                <div>
+                    <h2>Trecho 9 · Organized</h2>
+                    
+                    <div class="pdsqi9-glosa">É bem estruturado, ajudando a compreender o curso clínico.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Organização
+O resumo é bem estruturado, ajudando a compreender a evolução clínica do paciente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i5" name="retro__nome_atributo__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5. O resumo está organizado?
+
+a. O resumo está bem elaborado e estruturado de forma que ajuda o leitor a compreender a evolução clínica do paciente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i5" name="retro__enunciado__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Todas as afirmações estão apresentadas fora de ordem e com agrupamentos incoerentes (completamente desorganizados).</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i5" name="retro__nota1__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2: Algumas afirmações são apresentadas fora de ordem OU o agrupamento é incoerente.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i5" name="retro__nota2__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3: Nenhuma alteração na ordem ou no agrupamento (seja cronológico ou baseado em sistemas/problemas) em relação ao texto original.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i5" name="retro__nota3__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4: Apresenta ordem lógica OU agrupamento lógico (cronológico ou baseado em sistemas/problemas) para todas as afirmações, mas não ambos.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i5" name="retro__nota4__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Todas as afirmações são apresentadas com ordem e agrupamento lógicos (cronológicos ou baseados em sistemas/problemas) - completamente organizadas.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i5">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i5" name="retro__nota5__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i5">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i5" name="retro__observacoes__i5" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i5">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i5" name="comentarios__i5" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i6">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">6</span>
+                <div>
+                    <h2>Trecho 10 · Comprehensible</h2>
+                    
+                    <div class="pdsqi9-glosa">É claro, sem ambiguidade ou trechos de difícil entendimento.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Clareza
+O resumo é claro, sem ambiguidade ou trechos de difícil entendimento.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i6" name="retro__nome_atributo__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">6. O resumo é compreensível e apresenta clareza de linguagem?
+
+a. O resumo é claro, sem ambiguidades ou trechos de difícil compreensão.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i6" name="retro__enunciado__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Palavras na estrutura das frases são excessivamente complexas e inconsistentes, com terminologia desconhecida para o usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i6" name="retro__nota1__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2 Qualquer uso de termos excessivamente complexos, inconsistência ou terminologia desconhecida para o usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i6" name="retro__nota2__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3 Escolha de palavras mantida em relação ao texto original, com inclusão de termos excessivamente complexos quando havia oportunidade de melhoria.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i6" name="retro__nota3__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4 Alguma alteração na estrutura e na terminologia buscando melhoria e simplificação.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i6" name="retro__nota4__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Linguagem simples, completamente familiar e bem estruturada para o usuário-alvo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i6">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i6" name="retro__nota5__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i6">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i6" name="retro__observacoes__i6" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i6">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i6" name="comentarios__i6" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i7">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">7</span>
+                <div>
+                    <h2>Trecho 11 · Succinct</h2>
+                    
+                    <div class="pdsqi9-glosa">É breve, direto e sem redundância.</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Concisão
+O resumo é breve, direto e sem redundância.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i7" name="retro__nome_atributo__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">7. O resumo é conciso e utiliza a linguagem de forma econômica?
+
+a. O resumo é breve, direto ao ponto e sem redundâncias.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i7" name="retro__enunciado__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 1 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">1 (De modo algum): Excesso de palavras em todas as afirmações, com redundância sintática e semântica.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota1__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota1__i7" name="retro__nota1__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 2 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">2: Mais de uma afirmação apresenta redundância semântica no contexto.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota2__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota2__i7" name="retro__nota2__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 3 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">3: Pelo menos uma afirmação apresenta redundância semântica no contexto OU apresenta múltiplas redundâncias sintáticas.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota3__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota3__i7" name="retro__nota3__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 4 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">4: Nenhuma redundância sintática nas afirmações, mas pelo menos uma poderia ser mais sucinta quanto à semântica no contexto.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota4__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota4__i7" name="retro__nota4__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nota 5 (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">5 (Extremamente): Todas as afirmações são expressas com o menor número possível de palavras, sem qualquer redundância sintática ou semântica.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nota5__i7">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nota5__i7" name="retro__nota5__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i7">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i7" name="retro__observacoes__i7" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i7">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i7" name="comentarios__i7" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i8_portao">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">8</span>
+                <div>
+                    <h2>Trecho 12 · Synthesized - pergunta-portão</h2>
+                    <p>abstração: sim / não / NA</p>
+                    <div class="pdsqi9-glosa">Pergunta-portão: verifica se há necessidade de abstração no par nota/resumo. Só em caso afirmativo a escala é pontuada.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Pergunta-portão · item próprio</span>
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Capacidade de Síntese – Pergunta-Filtro
+Verifica se há necessidade de abstração no par evolução/resumo. Só em caso afirmativo a escala é pontuada.
+
+</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i8_portao">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i8_portao" name="retro__nome_atributo__i8_portao" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">8. Há necessidade de abstração no resumo?
+
+a. Se não, assinale N/A. Se sim, avalie o item "Capacidade de Síntese – Níveis de Abstração" que inclui maior inferência e raciocínio médico.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i8_portao">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i8_portao" name="retro__enunciado__i8_portao" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i8_portao">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i8_portao" name="retro__observacoes__i8_portao" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i8_portao">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i8_portao" name="comentarios__i8_portao" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i8">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">8</span>
+                <div>
+                    <h2>Trecho 13 · Synthesized - escala</h2>
+                    <p>condicional ao portão</p>
+                    <div class="pdsqi9-glosa">Havendo necessidade de abstração, demonstra raciocínio e capacidade de elaborar um plano.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Item condicional</span>
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Capacidade de Síntese – Níveis de Abstração
+Havendo necessidade de abstração, demonstra raciocínio e capacidade de elaborar um plano.
+*pontuado apenas se a abstração for necessária</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i8">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i8" name="retro__nome_atributo__i8" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">b. O resumo reflete a compreensão do autor sobre a condição do paciente e sua capacidade de desenvolver um plano de cuidados.
+
+1 (De modo algum): Raciocínio ou agrupamento incorreto nas conexões entre as afirmações.
+2 Abstração realizada quando não era necessária OU agrupamentos feitos entre afirmações precisas, porém inadequadas.
+3 As afirmações são apresentadas de forma isolada, sem qualquer raciocínio ou agrupamento entre elas, quando isso poderia ter sido feito (oportunidade perdida de abstração).
+4 Ocorre o agrupamento de afirmações em temas, mas limitado a um raciocínio completo voltado a um diagnóstico ou tratamento final clinicamente relevante.
+5 (Extremamente): Vai além dos agrupamentos de eventos relevantes, gerando um raciocínio sobre eles que resulta em um resumo totalmente integrado, oferecendo uma síntese clínica geral com informações priorizadas.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i8">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i8" name="retro__enunciado__i8" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i8">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i8" name="retro__observacoes__i8" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i8">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i8" name="comentarios__i8" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Trecho 14 · Stigmatizing - guia</h2>
+                    <p>orientação de linguagem (a-j)</p>
+                    <div class="pdsqi9-glosa">Guia para identificar linguagem estigmatizante (alíneas a a j).</div>
+                </div>
+                
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Estigmatização - Guia
+Guia para identificar linguagem estigmatizante.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i9">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i9" name="retro__nome_atributo__i9" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">9. Há presença de linguagem estigmatizante?
+
+a. Por favor, siga as orientações da ferramenta disponível neste link: https://www.chcs.org/media/Words-Matter-Strategies-to-Reduce-Bias-in-Electronic-Health-Records_102022.pdf 
+b. Evite usar palavras de descrédito ou tom exagerado, tais como "alega", "insiste" ou "supostamente".
+c. Reflita e seja consciente sobre suposições pessoais a respeito de quais pacientes têm credibilidade e quais não têm.
+d. Uso de aspas que sugere descrença (ex.: A mãe do paciente disse que "os remédios não funcionam" para o filho) ou perpetua estereótipos.
+e. Palavras de julgamento ou descrédito que sugiram dúvida (ex.: "Ele alega ou insiste que está com dor"; "Ela supostamente teve duas crises convulsivas").
+f. Dê preferência à linguagem centrada na pessoa, como "paciente com diabetes" em vez de "paciente diabético".
+g. Minimize a atribuição de culpa, rótulos e julgamentos. Opte por "Ela não está tolerando a oxigenioterapia" em vez do tom de julgamento "Ela se recusa a usar o oxigênio". Os profissionais também podem evitar julgar situações acidentais ou que possuem explicações válidas.
+h. Linguagem que sugira que a pessoa "é" o problema, em vez de "ter" um problema. Evite termos como "viciado", "alcoólatra" ou "usuário abusivo de drogas", preferindo "pessoa com transtorno por uso de substâncias". Evidências mostram que o termo "abuso" possui forte associação com julgamentos negativos e atitudes punitivas.
+i. Termos que evoquem associações negativas, atitudes punitivas e responsabilização/culpa do indivíduo.
+j. Termos que possam evocar cognições implícitas negativas e punitivas, tais como "urina suja".</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i9">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i9" name="retro__enunciado__i9" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i9">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i9" name="retro__observacoes__i9" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i9">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i9" name="comentarios__i9" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9_nota">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Trecho 15 · Stigmatizing - nota de origem</h2>
+                    <p>pergunta binária Sim/Não</p>
+                    <div class="pdsqi9-glosa">Presença de linguagem estigmatizante na nota de origem.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Binário · 1 de 2</span>
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Estigmatização - evolução de origem
+Presença de linguagem estigmatizante na evolução de origem.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i9_nota">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i9_nota" name="retro__nome_atributo__i9_nota" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Há presença de linguagem estigmatizante na evolução de origem? Sim/Não</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i9_nota">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i9_nota" name="retro__enunciado__i9_nota" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Alteração de "nota" por "evolução" de acordo com o esclarecimento do termo pelo Dr. na reunião.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i9_nota">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i9_nota" name="retro__observacoes__i9_nota" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i9_nota">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i9_nota" name="comentarios__i9_nota" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+        
+        <section class="pdsqi9-translation-item" id="i9_resumo">
+            <header class="pdsqi9-item-head">
+                <span class="pdsqi9-item-num">9</span>
+                <div>
+                    <h2>Trecho 16 · Stigmatizing - resumo</h2>
+                    <p>pergunta binária Sim/Não</p>
+                    <div class="pdsqi9-glosa">Presença de linguagem estigmatizante no resumo gerado.</div>
+                </div>
+                <span class="badge pdsqi9-push-right">Binário · 2 de 2</span>
+            </header>
+
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Nome do atributo (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Estigmatização - Resumo
+Presença de linguagem estigmatizante no resumo gerado.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__nome_atributo__i9_resumo">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__nome_atributo__i9_resumo" name="retro__nome_atributo__i9_resumo" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Enunciado (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Há presença de linguagem estigmatizante no resumo? Sim/Não</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__enunciado__i9_resumo">Retrotradução (inglês)</label>
+                    
+                    <textarea id="retro__enunciado__i9_resumo" name="retro__enunciado__i9_resumo" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-grid">
+                <div class="pdsqi9-source-col">
+                    <div class="pdsqi9-col-tag">Observações (português · T-12F)</div>
+                    <pre class="pdsqi9-source pdsqi9-translation-ro">Sem texto de síntese final registrado para este campo.</pre>
+                </div>
+                <div>
+                    <label class="pdsqi9-col-tag" for="retro__observacoes__i9_resumo">Retrotradução (inglês) (Opcional)</label>
+                    
+                    <textarea id="retro__observacoes__i9_resumo" name="retro__observacoes__i9_resumo" class="form-control pdsqi9-retrotraducao-textarea" placeholder="Translate the Portuguese text back into English."></textarea>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="pdsqi9-retro-comentarios">
+                <label class="pdsqi9-col-tag" for="comentarios__i9_resumo">Comentários e incertezas</label>
+                
+                <textarea id="comentarios__i9_resumo" name="comentarios__i9_resumo" class="form-control pdsqi9-decisao-textarea" placeholder="Ambiguidades, alternativas de leitura e dúvidas."></textarea>
+                
+            </div>
+        </section>
+    
+
+    <section class="panel p-5">
+        <label class="field-label" for="observacoes_retrotraducao">Observações gerais do retrotradutor</label>
+        
+        <textarea id="observacoes_retrotraducao" name="observacoes_gerais" class="form-control pdsqi9-obs-textarea mt-2" placeholder="Trechos ambíguos no português, incertezas e alternativas de leitura."></textarea>
+        
+        <div class="mt-4 flex flex-col sm:flex-row gap-3 sm:items-center">
+            
+            <button type="button" class="btn-success" onclick="abrirModalEnvio()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+                Enviar dados
+            </button>
+            
+            <a href="#" class="btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" class="lucide lucide-arrow-left h-4 w-4" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                Voltar para etapas
+            </a>
+            
+        </div>
+    </section>
+</form>
+
+
+<div class="pdsqi9-fab" aria-label="Salvar rascunho">
+    <button type="button" class="btn-primary pdsqi9-fab-btn" onclick="salvarRascunho()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="save" class="lucide lucide-save h-4 w-4" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
+        Salvar rascunho
+    </button>
+</div>
+
+<div id="modal-envio" class="pdsqi9-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-envio-titulo" hidden="">
+    <div class="pdsqi9-modal">
+        <div class="pdsqi9-modal-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle" class="lucide lucide-alert-triangle h-5 w-5 text-amber-600" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+            <h2 id="modal-envio-titulo" class="text-base font-semibold">Confirmar envio dos dados</h2>
+        </div>
+        <p class="text-sm text-muted mt-4">Após o envio, <strong>não será possível fazer novas edições</strong> nesta etapa. Verifique se todas as retrotraduções estão completas antes de continuar.</p>
+        <div class="pdsqi9-modal-actions">
+            <button type="button" class="btn-ghost" onclick="fecharModalEnvio()">Cancelar</button>
+            <button type="button" class="btn-danger" onclick="confirmarEnvio()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+                Confirmar envio
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function salvarRascunho() {
+    document.getElementById('form-action').value = 'rascunho';
+    document.getElementById('form-etapa3').submit();
+}
+function abrirModalEnvio() {
+    document.getElementById('modal-envio').hidden = false;
+}
+function fecharModalEnvio() {
+    document.getElementById('modal-envio').hidden = true;
+}
+function confirmarEnvio() {
+    document.getElementById('form-action').value = 'enviar';
+    document.getElementById('form-etapa3').submit();
+}
+document.getElementById('modal-envio').addEventListener('click', function(e) {
+    if (e.target === this) fecharModalEnvio();
+});
+</script>
+
+
+
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="app-container flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-0">
+            <span>© 2026 DIID. Todos os direitos reservados.</span>
+            <div class="flex items-center gap-4">
+                
+    <a href="#" class="text-github-light-link hover:underline dark:text-github-dark-link">
+        Documentação Externa
+    </a>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+        document.addEventListener('htmx:afterSwap', function() {
+            lucide.createIcons();
+        });
+    </script>
+    
+    <script>
+        // Reinicializa ícones se houver carregamento parcial via HTMX
+        document.addEventListener('htmx:afterSwap', function(evt) {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+
+
+
+</body></html>

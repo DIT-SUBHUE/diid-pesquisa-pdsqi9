@@ -1,1 +1,434 @@
-<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro · PDSQI-9</title><link rel="stylesheet" href="diid.css"><body><nav class="top-nav"><div class="app-container flex items-center justify-between gap-4 py-3"><nav aria-label="breadcrumb" class="flex min-w-0 items-center gap-1 overflow-hidden"><a href="index.html" class="breadcrumb-item shrink-0"><span>Portal DIID</span></a><span class="breadcrumb-separator shrink-0" aria-hidden="true">›</span><span class="breadcrumb-item breadcrumb-item-active min-w-0" aria-current="page">/ Cadastro de participante</span></nav><button type="button" class="theme-toggle" aria-label="Alternar tema">◐</button></div></nav><main id="conteudo" class="app-main"><div class="app-container py-8"><p class="page-kicker">PDSQI-9 · cadastro</p><h1 class="page-title mt-1">Cadastro de participante</h1><p class="text-sm text-muted mt-1">Participação na adaptação transcultural do instrumento PDSQI-9.</p><section class="pdsqi9-how-grid mt-6"><div class="panel"><strong>1. Termo e consentimento</strong><span>Leitura e aceite</span></div><div class="panel"><strong>2. Dados do participante</strong><span>Caracterização</span></div></section><form class="panel" style="margin-top:24px"><h2>Termo de Consentimento Livre e Esclarecido</h2><div class="pdsqi9-source" style="max-height:180px">Você está sendo convidado(a) a participar da pesquisa de adaptação transcultural do PDSQI-9. Lorem ipsum dolor sit amet, consectetur adipiscing elit. A participação é voluntária e suas respostas serão utilizadas exclusivamente para os fins descritos no protocolo aprovado.\n\nDeclaro que tive oportunidade de esclarecer minhas dúvidas e que compreendi as informações sobre a pesquisa.</div><label class="consent" style="margin-top:12px"><input type="checkbox" style="width:auto;margin-right:8px" checked> Declaro que li, compreendi e concordo livremente em participar.</label><h2 style="margin-top:26px">Dados do participante</h2><div class="form-grid" style="margin-top:14px"><div><label>Nome completo<input value="Loren Ipsum da Silva"></label></div><div><label>CPF<input value="123.456.789-09"></label></div><div><label>E-mail<input value="loren.ipsum@exemplo.org"></label></div><div><label>Telefone celular<input value="(11) 99999-0000"></label></div><div><label>Papel na pesquisa<select><option>Tradutor(a) informado(a)</option></select></label></div><div><label>Titulação<select><option>Mestrado</option></select></label></div><div><label>Tempo de formado (anos)<select><option>5 ou mais</option></select></label></div><div><label>Área de atuação<select><option>Saúde / clínica</option></select></label></div><div><label>Especialidade<input value="Medicina de família e comunidade"></label></div><div><label>Idade<input value="38"></label></div><div><label>Sexo<select><option>Prefiro não informar</option></select></label></div><div><label>Uso de prontuário eletrônico<select><option>Diariamente</option></select></label></div><div class="wide"><label>Experiência relevante<textarea class="form-control">Atuação em pesquisa clínica, terminologia em saúde e revisão de documentos assistenciais.</textarea></label></div></div><div class="actions"><a class="btn-primary" href="confirmacao.html">Concluir cadastro</a><a class="btn-ghost" href="index.html">Cancelar</a></div></form></div></main><footer class="app-footer"><div class="app-container flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-0"><span>© 2026 DIID. Todos os direitos reservados.</span><span>Documentação Externa</span></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="pt-br" data-theme-default="light" data-theme-fixed="light" x-data="{ darkMode: document.documentElement.classList.contains('dark') }" :class="{ 'dark': darkMode }" style="color-scheme: light;"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Cadastro de participante — Adaptação PDSQI-9</title>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="#">
+
+<script>
+    (function() {
+        var root = document.documentElement;
+
+        function defaultIsDark() {
+            var themeDefault = root.getAttribute('data-theme-default') || 'light';
+
+            if (themeDefault === 'system') {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            return themeDefault === 'dark';
+        }
+
+        function getStoredTheme() {
+            try {
+                return window.localStorage.getItem('theme');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function applyTheme(isDark) {
+            root.classList.toggle('dark', isDark);
+            root.style.colorScheme = isDark ? 'dark' : 'light';
+        }
+
+        // Páginas sem alternador (ex.: cadastro de participante) podem travar o tema
+        // com data-theme-fixed="light|dark": a preferência salva é ignorada e o
+        // tema não pode ser alterado enquanto a página estiver aberta.
+        var fixedTheme = root.getAttribute('data-theme-fixed');
+        var isFixed = fixedTheme === 'dark' || fixedTheme === 'light';
+
+        var storedTheme = getStoredTheme();
+        var isDark = isFixed
+            ? fixedTheme === 'dark'
+            : (storedTheme ? storedTheme === 'dark' : defaultIsDark());
+
+        applyTheme(isDark);
+
+        window.DIIDTheme = {
+            apply: isFixed ? function() { applyTheme(isDark); } : applyTheme,
+            save: function(nextIsDark) {
+                if (isFixed) {
+                    applyTheme(isDark);
+                    return;
+                }
+
+                applyTheme(nextIsDark);
+
+                try {
+                    window.localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+                } catch (error) {}
+            }
+        };
+    })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/css2_OygB.css" rel="stylesheet">
+<link rel="stylesheet" href="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/app_OygB.css">
+<link rel="stylesheet" href="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/datatables-2.2.2.min_OygB.css">
+
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/jquery-3.7.1.slim.min_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/datatables-2.2.2.min_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/htmx-1.9.10.min_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/alpinejs-3.15.11.min_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/lucide-1.12.0.min_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/datatable-init_OygB.js" defer="defer"></script>
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/dialog_OygB.js" defer="defer"></script>
+
+
+    <link rel="stylesheet" href="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/auth_OygB.css">
+    
+<link rel="stylesheet" href="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/ia_na_alta_OygB.css">
+
+<style>                      .htmx-indicator{opacity:0}                      .htmx-request .htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                      .htmx-request.htmx-indicator{opacity:1; transition: opacity 200ms ease-in;}                    </style></head>
+<body class="font-sans vsc-initialized">
+    <main class="auth-shell">
+        <section class="auth-main">
+            <div class="auth-card-wrap auth-card-wrap-wide pdsqi9-cadastro-wrap">
+                <a href="#" class="auth-brand auth-brand-centered" aria-label="Portal DIID">
+                    <span class="brand-mark auth-brand-mark">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="blocks" aria-hidden="true" class="lucide lucide-blocks h-6 w-6"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"></path><rect x="14" y="2" width="8" height="8" rx="1"></rect></svg>
+                    </span>
+                    <span class="auth-brand-text">Portal DIID</span>
+                </a>
+
+                
+
+
+                <section class="auth-card" aria-labelledby="auth-title">
+                    <header class="auth-card-header">
+                        <h1 id="auth-title" class="auth-title">Cadastro de participante</h1>
+                        <p class="auth-subtitle">Tradutor informado · Adaptação transcultural do PDSQI-9 · Resoluções CNS nº 466/2012 e nº 510/2016.</p>
+                    </header>
+                    
+<div x-data="{ etapa: 1, aceitou: false, recusou: false, medico: '', ingles: '', get isJuizVotante() { return this.medico === 'sim' &amp;&amp; this.ingles === 'sim'; }, papelTexto() { if (this.medico === '' || this.ingles === '') { return 'responda se você é médico(a) e se possui leitura de textos técnicos em inglês.'; } if (this.isJuizVotante) { return 'juiz votante — médico(a) com leitura de textos técnicos em inglês: suas notas entram no cálculo do IVC.'; } return 'ouvinte da reunião de consenso, sem voto no IVC.'; } }">
+
+    <nav class="pdsqi9-cadastro-steps" aria-label="Progresso do cadastro">
+        <span :class="etapa === 1 ? 'is-active' : (etapa &gt; 1 ? 'is-done' : '')" class="is-done">
+            <span class="pdsqi9-cadastro-step-num">1</span> Termo e consentimento
+        </span>
+        <span :class="etapa === 2 ? 'is-active' : ''" class="is-active">
+            <span class="pdsqi9-cadastro-step-num">2</span> Dados do participante
+        </span>
+    </nav>
+
+    
+    <p class="field-help mt-2" x-show="etapa === 1" style="display: none;">Versão do termo: v1.1</p>
+    
+
+    
+
+
+    
+
+    <form method="post" class="auth-form" novalidate="">
+        <input type="hidden" name="csrfmiddlewaretoken" value="demo-statico">
+        <input type="hidden" name="aceite_termo" value="1">
+        
+        
+            <input type="hidden" name="papel_pesquisa" value="tradutor_informado" class="form-control" id="id_papel_pesquisa">
+        
+        
+
+        <!-- ===== Etapa 1: termo + consentimento ===== -->
+        <section x-show="etapa === 1" style="display: none;">
+            <div class="panel p-4 pdsqi9-termo-scroll" aria-label="Texto do termo de consentimento">
+                <article class="pdsqi9-termo-conteudo">
+  <h2>Termo de Consentimento Livre e Esclarecido (TCLE)</h2>
+  <p><strong>Pesquisa:</strong> Adaptação transcultural do PDSQI-9 para o português brasileiro e para uso no Sistema Único de Saúde</p>
+  <p><strong>Resoluções CNS nº 466/2012 e nº 510/2016</strong></p>
+
+  <p>Você está sendo convidado(a) a participar, como voluntário(a), da pesquisa acima, que adapta para o português brasileiro e para uso no Sistema Único de Saúde (SUS) uma ferramenta estruturada de avaliação da qualidade de resumos de alta hospitalar. Sua participação ocorre na condição de sujeito da pesquisa, e não como membro da equipe de pesquisadores. Leia este termo com atenção antes de decidir. Você pode tirar dúvidas a qualquer momento pelos contatos informados ao final.</p>
+
+  <h3>1. Justificativa</h3>
+  <p>Os resumos de alta hospitalar variam muito em qualidade e são essenciais para a continuidade do cuidado entre o hospital e a Atenção Primária à Saúde. Para avaliar essa qualidade de forma padronizada no contexto brasileiro, é necessário dispor de um instrumento equivalente ao original, em inglês, e compreensível para os profissionais que o utilizarão.</p>
+
+  <h3>2. Objetivo</h3>
+  <p>Assegurar que a versão em português do instrumento seja equivalente à ferramenta original e compreensível para os profissionais que a utilizarão, de forma adequada ao contexto do SUS.</p>
+
+  <h3>3. Em que consiste a sua participação</h3>
+  <p>Conforme o papel que você indicar no cadastro, a sua participação poderá envolver uma ou mais das seguintes atividades: traduzir ou retrotraduzir a ferramenta; conciliar traduções; avaliar as versões em comitê de especialistas; ou aplicar a ferramenta a exemplos de resumos de alta durante o pré-teste. No pré-teste, cada participante avalia um conjunto de pares compostos por nota(s) clínica(s) e pelo respectivo resumo de alta. Esses resumos são dados secundários, previamente anonimizados de forma irreversível, e não há qualquer contato com pacientes. Estima-se que cada avaliação leve, em média, cerca de 1 hora.</p>
+
+  <h3>4. Riscos e desconfortos</h3>
+  <p>Este estudo é classificado como de risco mínimo, nos termos da Resolução CNS nº 510/2016. Você não é submetido(a) a qualquer intervenção. O desconforto previsível se limita ao tempo dedicado à atividade e a eventual cansaço durante a avaliação. Para reduzir esse desconforto, você pode interromper e retomar a participação quando quiser e realizar as atividades no seu próprio ritmo.</p>
+
+  <h3>5. Benefícios</h3>
+  <p>Não há benefício financeiro nem benefício direto para você. O benefício é indireto e coletivo, pois a sua participação contribui para uma ferramenta validada em português que qualifique a avaliação dos resumos de alta e a continuidade do cuidado no SUS.</p>
+
+  <h3>6. Voluntariedade, recusa e retirada</h3>
+  <p>A sua participação é inteiramente voluntária. Você pode recusar-se a participar ou retirar o seu consentimento a qualquer momento, sem necessidade de justificativa e sem qualquer prejuízo ou penalização. Para retirar-se, basta comunicar ao pesquisador responsável ou assistentes da pesquisa.</p>
+
+  <h3>7. Sigilo, confidencialidade e proteção de dados</h3>
+  <p>A sua identidade será mantida em sigilo. Os dados serão codificados e tratados de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Os dados pessoais coletados no cadastro, como CPF, nome, e-mail e telefone, são usados exclusivamente para a gestão da sua participação e para contato, sendo armazenados de forma segura e separada dos dados de avaliação, que são identificados apenas por um código de participação (por exemplo, PART-XXXXXX). O CPF é utilizado como login de acesso. Nenhum dado que permita identificá-lo(a) será divulgado em publicações ou relatórios.</p>
+
+  <h3>8. Ressarcimento e indenização</h3>
+  <p>Você não terá custos nem receberá qualquer compensação financeira pela participação.</p>
+
+  <h3>9. Guarda dos dados e via do termo</h3>
+  <p>Os dados da pesquisa serão guardados por cinco anos e, depois, descartados de forma segura. Você tem direito a uma via deste termo, disponibilizada em formato digital (PDF) ao final do cadastro.</p>
+
+  <h3>10. Como funciona o consentimento</h3>
+  <p>Este consentimento é registrado de forma eletrônica. Após ler este termo, você deverá assinalar de forma ativa a declaração de concordância e confirmar. O sistema registra a data e a hora do aceite, gera um identificador único de participação e disponibiliza uma via deste termo para você guardar.</p>
+
+  <h3>11. Contatos</h3>
+  <p>Em caso de dúvidas sobre a pesquisa, você pode entrar em contato com o pesquisador responsável, Daniel Lopes da Mata, pelo telefone (21) 97103-0103, ou com a equipe técnica: Ana Paula da Silva Maza Correia, pelo telefone (24) 98117-0493, e Mayke Peres Maciel, pelo telefone (21) 98851-0268.</p>
+  <p>Para dúvidas de natureza ética, você pode contatar:</p>
+  <p><strong>Comitê de Ética em Pesquisa da UNAMA (CEP proponente):</strong> Avenida Alcindo Cacela, 287, 5º andar, Bloco D, Umarizal, Belém, PA, CEP 66.060-902. Telefone: (91) 99177-1348. E-mail: cep.unama@unama.br.</p>
+  <p><strong>Comitê de Ética em Pesquisa da Secretaria Municipal de Saúde do Rio de Janeiro (CEP coparticipante):</strong> Rua Evaristo da Veiga, 16, 2º andar, Centro, Rio de Janeiro, RJ, CEP 20031-040. Telefone: (21) 2215-1485. E-mail: cepsms@rio.rj.gov.br.</p>
+</article>
+
+            </div>
+            <p class="field-help mt-2">Leia o termo completo antes de decidir.</p>
+
+            
+
+            <div class="panel p-4 mt-4">
+                <label class="pdsqi9-consent-checkbox">
+                    <input type="checkbox" x-model="aceitou" checked="checked">
+                    <span>Declaro que li o termo, que compreendi as informações sobre a pesquisa e a minha participação conforme o meu papel, que minhas dúvidas foram esclarecidas e que concordo de forma livre e esclarecida em participar.</span>
+                </label>
+            </div>
+
+            <div class="mt-4 flex flex-col sm:flex-row gap-3 sm:items-center">
+                <button type="button" class="btn-primary" :disabled="!aceitou" @click="etapa = 2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                    Concordo e quero participar
+                </button>
+                <button type="button" class="btn-ghost" @click="recusou = true">Não concordo</button>
+            </div>
+
+            <div class="mt-2" x-show="recusou" style="display: none;">
+                <div class="rounded-md border px-4 py-3 text-sm shadow-primer border-github-light-danger/30 bg-github-light-danger/10 text-github-light-danger dark:border-github-dark-danger/40 dark:bg-github-dark-danger/10 dark:text-github-dark-danger">
+    <div class="flex items-start gap-3">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="circle-alert" aria-hidden="true" class="lucide lucide-circle-alert mt-0.5 h-4 w-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+        
+        <div>Não é possível prosseguir com o cadastro sem aceitar os termos do estudo.</div>
+    </div>
+</div>
+
+            </div>
+        </section>
+
+        <!-- ===== Etapa 2: dados do participante ===== -->
+        <section x-show="etapa === 2">
+            <p class="page-kicker mb-2">Identificação</p>
+            
+            <div class="password-fields-grid">
+                <div class="form-field">
+    <label for="id_username" class="field-label">CPF *</label>
+    <input type="text" name="username" class="form-control" autocomplete="username" inputmode="numeric" pattern="[0-9]{11}" placeholder="Somente números" maxlength="11" minlength="11" autofocus="" required="" id="id_username">
+    
+    
+</div>
+
+                <div class="form-field">
+    <label for="id_telefone_celular" class="field-label">Telefone celular *</label>
+    <input type="text" name="telefone_celular" class="form-control" autocomplete="tel" inputmode="tel" placeholder="DDD + número" maxlength="20" required="" id="id_telefone_celular">
+    
+    
+</div>
+
+            </div>
+            
+            <div class="mt-2"><div class="form-field">
+    <label for="id_usuario_nome" class="field-label">Nome completo *</label>
+    <input type="text" name="usuario_nome" class="form-control" autocomplete="name" placeholder="Nome completo do participante" maxlength="255" required="" id="id_usuario_nome">
+    
+    
+</div>
+</div>
+            <div class="mt-2"><div class="form-field">
+    <label for="id_email" class="field-label">E-mail *</label>
+    <input type="text" name="email" class="form-control" autocomplete="email" inputmode="email" placeholder="nome@exemplo.com" maxlength="254" required="" id="id_email">
+    
+    
+</div>
+</div>
+            
+            <div class="password-fields-grid mt-2">
+                <div class="form-field">
+    <label for="id_password1" class="field-label">Senha *</label>
+    <div class="auth-password-field" data-password-field="">
+        <input type="password" name="password1" autocomplete="new-password" class="form-control" placeholder="Mínimo 8 caracteres" required="" aria-describedby="id_password1_helptext" id="id_password1">
+        <button type="button" class="auth-password-toggle" aria-label="Mostrar senha" aria-controls="id_password1" aria-pressed="false" title="Mostrar senha" data-password-toggle="" data-show-label="Mostrar senha" data-hide-label="Ocultar senha" data-password-toggle-ready="true" data-state="hidden">
+            <span data-password-icon="show">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" class="lucide lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+            <span data-password-icon="hide" hidden="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye-off" aria-hidden="true" class="lucide lucide-eye-off h-4 w-4"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg>
+            </span>
+        </button>
+    </div>
+    
+</div>
+
+                <div class="form-field">
+    <label for="id_password2" class="field-label">Confirmar senha *</label>
+    <div class="auth-password-field" data-password-field="">
+        <input type="password" name="password2" autocomplete="new-password" class="form-control" placeholder="Repita sua senha" required="" aria-describedby="id_password2_helptext" id="id_password2">
+        <button type="button" class="auth-password-toggle" aria-label="Mostrar confirmação" aria-controls="id_password2" aria-pressed="false" title="Mostrar confirmação" data-password-toggle="" data-show-label="Mostrar confirmação" data-hide-label="Ocultar confirmação" data-password-toggle-ready="true" data-state="hidden">
+            <span data-password-icon="show">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye" aria-hidden="true" class="lucide lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+            <span data-password-icon="hide" hidden="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="eye-off" aria-hidden="true" class="lucide lucide-eye-off h-4 w-4"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg>
+            </span>
+        </button>
+    </div>
+    
+</div>
+
+            </div>
+            <p class="field-help mt-2">O CPF é o seu login. Use no mínimo 8 caracteres e guarde a senha: ela também dá acesso às etapas seguintes da pesquisa.</p>
+            
+
+            <p class="page-kicker mb-2 mt-6">Caracterização profissional</p>
+            <div class="password-fields-grid">
+                <div class="form-field">
+    <label for="id_titulacao" class="field-label">Titulação *</label>
+    <select name="titulacao" class="form-control" required="" id="id_titulacao">
+  <option value="" selected="selected">(selecione)</option>
+
+  <option value="graduacao">Graduação</option>
+
+  <option value="especializacao">Especialização</option>
+
+  <option value="mestrado">Mestrado</option>
+
+  <option value="doutorado">Doutorado</option>
+
+</select>
+    
+    
+</div>
+
+                <div class="form-field">
+    <label for="id_tempo_formacao_anos" class="field-label">Tempo de formado (anos) *</label>
+    <select name="tempo_formacao_anos" class="form-control" required="" id="id_tempo_formacao_anos">
+  <option value="" selected="selected">(selecione)</option>
+
+  <option value="1">1</option>
+
+  <option value="2">2</option>
+
+  <option value="3">3</option>
+
+  <option value="4">4</option>
+
+  <option value="5">5 ou mais</option>
+
+</select>
+    
+    
+</div>
+
+            </div>
+            <div class="password-fields-grid mt-2">
+                <div class="form-field">
+    <label for="id_area_atuacao" class="field-label">Área de atuação *</label>
+    <select name="area_atuacao" class="form-control" required="" id="id_area_atuacao">
+  <option value="" selected="selected">(selecione)</option>
+
+  <option value="hospitalar">Atenção Hospitalar</option>
+
+  <option value="primaria">Atenção Primária</option>
+
+  <option value="ambas">Ambas</option>
+
+  <option value="linguista">Linguista</option>
+
+  <option value="outra">Outra</option>
+
+</select>
+    
+    
+</div>
+
+                <div class="form-field">
+    <label for="id_idade" class="field-label">Idade *</label>
+    <input type="number" name="idade" class="form-control" placeholder="Ex.: 35" min="18" max="99" required="" id="id_idade">
+    
+    
+</div>
+
+            </div>
+            <div class="mt-2"><div class="form-field">
+    <label for="id_sexo" class="field-label">Sexo *</label>
+    <select name="sexo" class="form-control" required="" id="id_sexo">
+  <option value="" selected="selected">(selecione)</option>
+
+  <option value="feminino">Feminino</option>
+
+  <option value="masculino">Masculino</option>
+
+  <option value="nao_informado">Prefiro não informar</option>
+
+</select>
+    
+    
+</div>
+</div>
+            <div class="mt-2"><div class="form-field">
+    <label for="id_uso_prontuario_eletronico" class="field-label">Uso de prontuário eletrônico *</label>
+    <select name="uso_prontuario_eletronico" class="form-control" required="" id="id_uso_prontuario_eletronico">
+  <option value="" selected="selected">(selecione)</option>
+
+  <option value="uso_regular">Sim, uso regular</option>
+
+  <option value="uso_eventual">Sim, uso eventual</option>
+
+  <option value="nao">Não</option>
+
+</select>
+    
+    
+</div>
+</div>
+            <div class="mt-2"><div class="form-field">
+    <label for="id_experiencia_relevante" class="field-label">Experiência relevante</label>
+    <textarea name="experiencia_relevante" cols="40" rows="3" class="form-control" placeholder="Descreva experiências relevantes para a pesquisa, se houver." id="id_experiencia_relevante"></textarea>
+    
+    
+</div>
+</div>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <button type="submit" class="btn-primary auth-submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle" class="lucide lucide-check-circle h-4 w-4" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+                    Concluir cadastro
+                </button>
+                <button type="button" class="btn-ghost" @click="etapa = 1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" class="lucide lucide-arrow-left h-4 w-4" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar ao termo
+                </button>
+            </div>
+        </section>
+    </form>
+</div>
+
+                    
+<p class="auth-support-line">
+    Ao concluir, você recebe um identificador único de participação.
+</p>
+
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+    
+<script src="Cadastro%20de%20participante%20%E2%80%94%20Adapta%C3%A7%C3%A3o%20PDSQI-9_files/password_forms_OygB.js"></script>
+
+
+
+</body></html>
